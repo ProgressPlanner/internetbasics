@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het grote plaatje — Web Basics Tutorial</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            }
+
+        .content {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-item:hover {
+            background: #e9ecef;
+            border-left-color: #4f46e5;
+        }
+
+        .nav-item.active {
+            background: #4f46e5;
+            color: white;
+            border-left-color: #4f46e5;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #4f46e5;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .analogy-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .analogy-box strong {
+            color: #856404;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #4f46e5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #721c24;
+        }
+
+        .resources-box {
+            background: #f0f8ff;
+            border-left: 4px solid #15803d;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .resources-box strong {
+            color: #166534;
+        }
+
+        .resources-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+
+        .resources-box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .resources-box a:hover {
+            text-decoration: underline;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #4f46e5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            line-height: 2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px solid #4f46e5;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-title {
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .code-editor {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .editor-pane {
+            flex: 1;
+        }
+
+        .editor-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .preview {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: white;
+            min-height: 80px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: none;
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 0.85em;
+                padding: 10px 12px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .main {
+                padding: 20px;
+                max-height: none;
+            }
+
+            .code-editor {
+                flex-direction: column;
+            }
+        }
+    
+        /* Keyboard focus indicators (WCAG 2.4.7) */
+        button:focus-visible,
+        .nav-item:focus-visible {
+            outline: 3px solid #4f46e5;
+            outline-offset: 2px;
+        }
+        a:focus-visible {
+            outline: 2px solid #4f46e5;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+        /* ── Multi-page navigation ── */
+        .page-top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.15);
+            font-size: 0.9em;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .page-top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.6);
+            white-space: nowrap;
+        }
+        .page-top-nav a:hover { background: rgba(255,255,255,0.2); }
+        .page-bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-top: 1px solid #ddd;
+            background: #f8f9fa;
+            gap: 12px;
+        }
+        .page-bottom-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .page-bottom-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.35);
+        }
+        .group-subtitle {
+            font-size: 0.95em;
+            font-weight: 500;
+            margin-top: 6px;
+            opacity: 1;
+        }
+
+        /* Explicit white text in header — overrides global p/h rules (WCAG fix) */
+        header h1,
+        header p,
+        .page-top-nav,
+        .group-subtitle {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="page-top-nav">
+                <a href="index.html">← Home</a>
+                <a href="../en/bigger-picture.html">🇬🇧 English</a>
+            </div>
+            <h1>🌐 Web Basics Tutorial</h1>
+            <p>Leer hoe het web werkt — met voorbeelden, vergelijkingen en dingen die je zelf kunt uitproberen!</p>
+            <p class="group-subtitle">Frontend/Backend · Responsive Design</p>
+        </header>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="nav-item active" onclick="showSection('architecture', this)">🏗️ Frontend/Backend</div>
+                <div class="nav-item" onclick="showSection('responsive', this)">📱 Responsive</div>
+            </div>
+            <div class="main">
+                <div id="architecture" class="section active">
+                    <h2>Frontend vs backend — de twee helften van een web-app</h2>
+
+                    <p>Elke professionele webapplicatie heeft twee hoofdonderdelen. Ze draaien op verschillende computers en praten met elkaar via het internet.</p>
+
+                    <div class="analogy-box">
+                        <strong>🏪 Vergelijking:</strong> Frontend is de winkelvloer — wat klanten zien en mee omgaan. Backend is het magazijn — waar al het echte werk plaatsvindt, volledig buiten zicht.
+                    </div>
+
+                    <h3>Frontend — wat in je browser draait</h3>
+                    <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <strong>Technologieën:</strong> HTML, CSS, JavaScript, React, Vue, Angular<br>
+                        <strong>Draait op:</strong> Jouw apparaat (telefoon, laptop, etc.)<br>
+                        <strong>Wat het doet:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>Toont de interface — knoppen, menu's, tekst, afbeeldingen</li>
+                            <li>Reageert direct op klikken en typen, zonder te wachten</li>
+                            <li>Controleert formulierinvoer voordat die naar de server gaat</li>
+                            <li>Stuurt verzoeken naar de backend</li>
+                            <li>Toont de ontvangen data (gewoonlijk JSON)</li>
+                            <li>Kan offline werken met service workers</li>
+                        </ul>
+                        <strong>Voordelen:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Snel — reageert direct zonder de server te vragen</li>
+                            <li>Kan offline werken</li>
+                            <li>Minder belasting op de server</li>
+                        </ul>
+                        <strong>Beperkingen:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Iedereen kan je JavaScript-code lezen</li>
+                            <li>Kan niet rechtstreeks met een database praten</li>
+                            <li>Beperkt door het apparaat van de gebruiker</li>
+                        </ul>
+                    </div>
+
+                    <h3>Backend — wat op de server draait</h3>
+                    <div style="border: 2px solid #15803d; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <strong>Technologieën:</strong> PHP, Python, Node.js, Java, Go, Rust<br>
+                        <strong>Draait op:</strong> Een server in een datacenter<br>
+                        <strong>Wat het doet:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>Ontvangt verzoeken van de frontend</li>
+                            <li>Voert de bedrijfslogica uit (controles, berekeningen, regels)</li>
+                            <li>Leest en schrijft naar de database</li>
+                            <li>Stuurt JSON terug naar de frontend</li>
+                            <li>Houdt code en data privé en veilig</li>
+                        </ul>
+                        <strong>Voordelen:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Code is volledig verborgen voor gebruikers</li>
+                            <li>Kan schalen — voeg meer servers toe indien nodig</li>
+                            <li>Directe toegang tot de database</li>
+                            <li>Kan zware taken uitvoeren (e-mails versturen, afbeeldingen verwerken)</li>
+                        </ul>
+                        <strong>Beperkingen:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Elke actie vereist een netwerkverzoek (langzamer)</li>
+                            <li>Kost geld om te hosten</li>
+                            <li>Als het uitvalt, ligt alles plat</li>
+                        </ul>
+                    </div>
+
+                    <h3>De volledige reis — een inlogpoging, stap voor stap</h3>
+                    <div class="diagram">
+                        <strong>Frontend (Browser)</strong><br>
+                        1. Gebruiker vult het inlogformulier in<br>
+                        2. JavaScript controleert of e-mail en wachtwoord er geldig uitzien<br>
+                        3. JavaScript stuurt HTTPS POST naar de server<br>
+                        <br>
+                        ↓ (reist over het internet) ↓<br>
+                        <br>
+                        <strong>Backend (Server)</strong><br>
+                        4. PHP ontvangt het verzoek<br>
+                        5. PHP zoekt het e-mailadres op in de database<br>
+                        6. PHP controleert de wachtwoordhash (nooit gewone tekst opslaan!)<br>
+                        7. PHP maakt een sessietoken<br>
+                        8. PHP stuurt JSON terug: { "success": true, "token": "..." }<br>
+                        <br>
+                        ↓ (reist over het internet) ↓<br>
+                        <br>
+                        <strong>Frontend (Browser)</strong><br>
+                        9. JavaScript leest de JSON<br>
+                        10. JavaScript slaat het token op<br>
+                        11. JavaScript gaat naar het dashboard<br>
+                        12. Gebruiker ziet zijn dashboard!
+                    </div>
+
+                    <h3>API-First — de moderne aanpak</h3>
+                    <p>De meeste moderne apps zijn "API-First" gebouwd: de backend bouwt een nette, gedocumenteerde API. De website, mobiele app en externe apps gebruiken allemaal dezelfde API. Zo hoeft de logica niet dubbel te worden geschreven.</p>
+
+                    <div class="resources-box">
+                        <strong>🎓 Meer leren?</strong>
+                        <ul>
+                            <li><a href="https://www.freecodecamp.org/news/frontend-vs-backend/" target="_blank">FreeCodeCamp: Frontend vs Backend</a></li>
+                            <li><a href="https://fullstackopen.com/" target="_blank">Full Stack Open Course</a></li>
+                            <li><a href="https://www.sitepoint.com/full-stack-developer/" target="_blank">SitePoint: Full Stack Development</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="responsive" class="section">
+                    <h2>Responsive design — één website, alle schermen</h2>
+
+                    <p>Responsive design betekent dat je website er goed uitziet en werkt op elk scherm — een kleine telefoon (320px breed), een tablet, een laptop, een groot beeldscherm. Meer dan 60% van het webverkeer komt tegenwoordig van telefoons, dus dit is echt belangrijk.</p>
+
+                    <div class="analogy-box">
+                        <strong>🪑 Vergelijking:</strong> Responsive design is als verstelbare autostoelen. Dezelfde stoel past een klein kind én een lange volwassene. Een responsieve website past zich net zo makkelijk aan elk schermformaat aan.
+                    </div>
+
+                    <h3>De drie pijlers van responsive design</h3>
+                    <div style="margin: 20px 0;">
+                        <strong>1. Flexibele lay-outs</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Gebruik percentages in plaats van vaste pixelbreedtes</li>
+                            <li>Gebruik CSS Grid of Flexbox voor de opmaak</li>
+                            <li>Elementen groeien en krimpen mee met het scherm</li>
+                        </ul>
+                        <strong>2. Flexibele media</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Afbeeldingen passen automatisch (<code>max-width: 100%</code>)</li>
+                            <li>Video's passen zich ook aan aan het schermformaat</li>
+                            <li>Gebruik <code>srcset</code> om hoge resolutie-afbeeldingen alleen naar hoge resolutie-schermen te sturen</li>
+                        </ul>
+                        <strong>3. Media Queries</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Schrijf andere CSS voor verschillende schermformaten</li>
+                            <li>Veelgebruikte breekpunten: 480px (telefoon), 768px (tablet), 1024px (desktop)</li>
+                            <li>Kan ook landscape versus portretoriëntatie aanpakken</li>
+                        </ul>
+                    </div>
+
+                    <h3>Mobile-first — begin klein, bouw op</h3>
+                    <p>De moderne aanpak is om eerst voor mobiel te ontwerpen en dan stijlen toe te voegen voor grotere schermen:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">/* MOBIEL — de basisstijlen */</span>
+body {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.container {
+  display: block; <span style="color: #61dafb">/* verticaal stapelen op kleine schermen */</span>
+}
+
+<span style="color: #61dafb">/* TABLET */</span>
+@media (min-width: 768px) {
+  body { font-size: 16px; }
+  .container { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+<span style="color: #61dafb">/* DESKTOP */</span>
+@media (min-width: 1024px) {
+  body { font-size: 18px; max-width: 1200px; margin: 0 auto; }
+  .sidebar { width: 250px; }
+}</code></div>
+
+                    <h3>Responsive best practices</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Viewport meta-tag:</strong> Voeg altijd <code>&lt;meta name="viewport" content="width=device-width"&gt;</code> toe</li>
+                        <li><strong>Geschikt voor aanraken:</strong> Knoppen moeten minimaal 44x44px zijn — vingers zijn minder precies dan muiscursors</li>
+                        <li><strong>Leesbare tekst:</strong> Gebruik minimaal 16px op mobiel</li>
+                        <li><strong>Afbeeldingen comprimeren:</strong> Mobiele verbindingen zijn trager — stuur geen grote bestanden</li>
+                        <li><strong>Testen op echte apparaten:</strong> Emulatoren zijn goed, maar echte telefoons zijn beter</li>
+                        <li><strong>Geen horizontaal scrollen:</strong> Als je pagina zijdelings scrolt, klopt er iets niet</li>
+                    </ul>
+
+                    <h3>Tools voor responsive testen</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Browser DevTools:</strong> Druk op F12, klik dan op het telefoonpictogram om verschillende schermen te simuleren</li>
+                        <li><strong>Google Mobile-Friendly Test:</strong> Controleer of Google je pagina als mobielgeschikt beschouwt</li>
+                        <li><strong>Lighthouse:</strong> Ingebouwd in Chrome — test prestaties, toegankelijkheid en SEO</li>
+                        <li><strong>BrowserStack:</strong> Test op echte apparaten in de cloud</li>
+                    </ul>
+
+                    <div class="resources-box">
+                        <strong>🎓 Meer leren?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/nl/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank">MDN: Responsive Design (Nederlands)</a></li>
+                            <li><a href="https://www.smashingmagazine.com/responsive-design/" target="_blank">Smashing Magazine: Responsive Design</a></li>
+                            <li><a href="https://web.dev/responsive-web-design-basics/" target="_blank">Google: Responsive Web Design Basics</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-bottom-nav">
+            <a href="backend-en-data.html">← Data opslaan en versturen</a>
+            <a href="samenvatting.html">Alles samen →</a>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        // === HTML Demo ===
+        function renderHtml() {
+            const code = document.getElementById('htmlInput').value;
+            document.getElementById('htmlPreview').innerHTML = code;
+        }
+
+        // === CSS Demo ===
+        function renderCss() {
+            const css = document.getElementById('cssInput').value;
+            document.getElementById('cssPreview').innerHTML =
+                '<style>' + css + '</style>' +
+                '<h1>Dit is een Kopje</h1>' +
+                '<p>Dit is een paragraaf met wat tekst.</p>';
+        }
+
+        // === JavaScript Demos ===
+        function jsDemo1() {
+            const now = new Date();
+            showJsOutput('Huidige Tijd: ' + now.toLocaleTimeString('nl-NL'));
+        }
+
+        function jsDemo2() {
+            showJsOutput('5 + 3 = ' + (5 + 3));
+        }
+
+        function jsDemo3() {
+            showJsOutput('Hallo! Welkom bij JavaScript!');
+        }
+
+        function showJsOutput(msg) {
+            const el = document.getElementById('jsOutput');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function calculateSum() {
+            const n1 = parseFloat(document.getElementById('num1').value);
+            const n2 = parseFloat(document.getElementById('num2').value);
+            const el = document.getElementById('calcOutput');
+            el.textContent = (isNaN(n1) || isNaN(n2))
+                ? 'Voer geldige getallen in!'
+                : n1 + ' + ' + n2 + ' = ' + (n1 + n2);
+            el.style.display = 'block';
+        }
+
+        // === PHP Simulatie ===
+        function simulatePhp() {
+            const name = document.getElementById('phpName').value.trim();
+            const el = document.getElementById('phpOutput');
+            if (!name) {
+                el.textContent = 'Voer een naam in!';
+            } else {
+                const now = new Date();
+                const greeting = now.getHours() < 12 ? 'Goedemorgen' : 'Goedemiddag';
+                el.textContent =
+                    'Server-side PHP verwerking:\n' +
+                    '- Naam ontvangen: "' + name + '"\n' +
+                    '- Huidige tijd: ' + now.toLocaleTimeString('nl-NL') + '\n' +
+                    '- Database-query uitgevoerd\n' +
+                    '- Antwoord verstuurd naar browser:\n\n' +
+                    greeting + ', ' + name + '! Je gegevens zijn verwerkt op de server.';
+            }
+            el.style.display = 'block';
+        }
+
+        // === JSON Demos ===
+        function showJsonExample1() {
+            const data = { "naam": "Alex", "leeftijd": 25, "stad": "Amsterdam", "isStudent": true };
+            showJson(data);
+        }
+
+        function showJsonExample2() {
+            const data = [
+                { "naam": "Alice", "leeftijd": 20 },
+                { "naam": "Bob", "leeftijd": 22 },
+                { "naam": "Charlie", "leeftijd": 21 }
+            ];
+            showJson(data);
+        }
+
+        function showJsonExample3() {
+            const data = {
+                "bedrijf": "Tech Company",
+                "werknemers": [
+                    { "naam": "John", "afdeling": "Engineering" },
+                    { "naam": "Sarah", "afdeling": "Marketing" }
+                ],
+                "opgericht": 2010
+            };
+            showJson(data);
+        }
+
+        function showJson(data) {
+            const el = document.getElementById('jsonDisplay');
+            el.textContent = JSON.stringify(data, null, 2);
+            el.style.display = 'block';
+        }
+
+        // Initialiseer previews bij laden
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof renderHtml === 'function') renderHtml();
+            if (typeof renderCss === 'function') renderCss();
+        });
+    </script>
+</body>
+</html>

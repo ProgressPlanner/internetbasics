@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Basics Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            }
+
+        .content {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-item:hover {
+            background: #e9ecef;
+            border-left-color: #4f46e5;
+        }
+
+        .nav-item.active {
+            background: #4f46e5;
+            color: white;
+            border-left-color: #4f46e5;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #4f46e5;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .analogy-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .analogy-box strong {
+            color: #856404;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #4f46e5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #721c24;
+        }
+
+        .resources-box {
+            background: #f0f8ff;
+            border-left: 4px solid #15803d;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .resources-box strong {
+            color: #166534;
+        }
+
+        .resources-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+
+        .resources-box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .resources-box a:hover {
+            text-decoration: underline;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #4f46e5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            line-height: 2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px solid #4f46e5;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-title {
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .code-editor {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .editor-pane {
+            flex: 1;
+        }
+
+        .editor-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .preview {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: white;
+            min-height: 80px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: none;
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 0.85em;
+                padding: 10px 12px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .main {
+                padding: 20px;
+                max-height: none;
+            }
+
+            .code-editor {
+                flex-direction: column;
+            }
+        }
+
+        /* Keyboard focus indicators (WCAG 2.4.7) */
+        button:focus-visible,
+        .nav-item:focus-visible {
+            outline: 3px solid #4f46e5;
+            outline-offset: 2px;
+        }
+        a:focus-visible {
+            outline: 2px solid #4f46e5;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    
+        /* Explicit white text in header — overrides global p/h rules (WCAG fix) */
+        header h1,
+        header p,
+        .page-top-nav,
+        .group-subtitle {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Web Basics Tutorial</h1>
+            <p>Learn how the web works — with examples, analogies, and things you can try yourself!</p>
+        </header>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="nav-item active" onclick="showSection('html', this)">📝 HTML</div>
+                <div class="nav-item" onclick="showSection('css', this)">🎨 CSS</div>
+                <div class="nav-item" onclick="showSection('js', this)">⚙️ JavaScript</div>
+                <div class="nav-item" onclick="showSection('servers', this)">🖥️ Servers &amp; hosting</div>
+                <div class="nav-item" onclick="showSection('php', this)">🔧 PHP</div>
+                <div class="nav-item" onclick="showSection('json', this)">📋 JSON</div>
+                <div class="nav-item" onclick="showSection('http', this)">🌍 HTTP/HTTPS</div>
+                <div class="nav-item" onclick="showSection('dns', this)">🔗 DNS</div>
+                <div class="nav-item" onclick="showSection('api', this)">📡 APIs</div>
+                <div class="nav-item" onclick="showSection('db', this)">💾 Databases</div>
+                <div class="nav-item" onclick="showSection('architecture', this)">🏗️ Frontend/Backend</div>
+                <div class="nav-item" onclick="showSection('responsive', this)">📱 Responsive</div>
+                <div class="nav-item" onclick="showSection('summary', this)">✅ Everything together</div>
+            </div>
+
+            <div class="main">
+
+                <!-- ==================== HTML ==================== -->
+                <div id="html" class="section active">
+                    <h2>HTML — the structure of the web</h2>
+
+                    <p>HTML stands for <strong>HyperText Markup Language</strong>. Every single website you've ever visited is built with HTML. It's the basic building block of the web. HTML tells the browser what each thing on a page <em>is</em> — a heading, a paragraph, an image, a button.</p>
+
+                    <div class="analogy-box">
+                        <strong>🏠 Think of it like this:</strong> If a website were a house, HTML would be the walls, windows, doors and rooms. It decides the <em>layout and structure</em> — not how it looks or what it does.
+                    </div>
+
+                    <p>When you open a website, your browser downloads the HTML file from the server. That file contains all the text and tells the browser where to find images and other files. The browser reads it and builds the page you see.</p>
+
+                    
+                    <h3>Your first HTML page</h3>
+                    <p>Every HTML file starts with the same basic skeleton. Think of it as the frame you always build around your content:</p>
+                    <div class="code-block"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;This is my first webpage.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></div>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><code>&lt;!DOCTYPE html&gt;</code> — Tells the browser this is a modern HTML5 page</li>
+                        <li><code>&lt;html lang="en"&gt;</code> — The outer wrapper. <code>lang</code> tells screen readers what language it is</li>
+                        <li><code>&lt;head&gt;</code> — Setup info the browser needs but the user doesn't see</li>
+                        <li><code>&lt;meta charset="UTF-8"&gt;</code> — Makes sure special characters like é and ü show correctly</li>
+                        <li><code>&lt;title&gt;</code> — The text that appears in the browser tab</li>
+                        <li><code>&lt;body&gt;</code> — Everything visible on the page goes here</li>
+                    </ul>
+
+                    <h3>Why is HTML useful?</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Universal:</strong> Every device with a browser can read HTML</li>
+                        <li><strong>Meaningful:</strong> HTML tags describe what something <em>is</em>, not just how it looks</li>
+                        <li><strong>Easy to start:</strong> You can learn the basics in an afternoon</li>
+                        <li><strong>Good for search engines:</strong> Google can read and understand HTML</li>
+                        <li><strong>Accessible:</strong> Screen readers (for blind users) use HTML to read pages out loud</li>
+                    </ul>
+
+                    <h3>How a browser turns HTML into a page</h3>
+                    <div class="diagram">
+                        1. Browser downloads the HTML file<br>
+                        ↓<br>
+                        2. Browser reads (parses) the HTML<br>
+                        ↓<br>
+                        3. Browser builds a map of the page called the DOM<br>
+                        ↓<br>
+                        4. Browser loads CSS to add styling<br>
+                        ↓<br>
+                        5. Browser loads JavaScript to add interactivity<br>
+                        ↓<br>
+                        6. You see the finished page!
+                    </div>
+
+                    <h3>Semantic HTML — using the right tag for the job</h3>
+                    <p>Modern HTML has special tags that describe what content <em>means</em>, not just what it looks like. This helps Google and screen readers understand your page:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><code>&lt;header&gt;</code> — The top part of a page or section</li>
+                        <li><code>&lt;nav&gt;</code> — A navigation menu</li>
+                        <li><code>&lt;main&gt;</code> — The main content of the page</li>
+                        <li><code>&lt;article&gt;</code> — A blog post or standalone piece of content</li>
+                        <li><code>&lt;section&gt;</code> — A group of related content</li>
+                        <li><code>&lt;aside&gt;</code> — A sidebar or extra info</li>
+                        <li><code>&lt;footer&gt;</code> — The bottom of a page</li>
+                    </ul>
+
+                    <h3>Cool things HTML5 can do</h3>
+                    <p>Modern HTML5 (the latest version) has lots of built-in features:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Video and audio:</strong> Play videos and music with <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code></li>
+                        <li><strong>Canvas:</strong> Draw shapes and animations directly in the browser</li>
+                        <li><strong>SVG:</strong> Scalable images that look sharp at any size</li>
+                        <li><strong>Form validation:</strong> Check if an email address looks right before the form is sent</li>
+                        <li><strong>Geolocation:</strong> Ask the user for their location</li>
+                        <li><strong>LocalStorage:</strong> Save small bits of data in the user's browser</li>
+                    </ul>
+
+                    <h3>Try it yourself!</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">
+                    <h3>Tags you'll use all the time</h3>
+                    <p>There are hundreds of HTML tags, but a small handful covers almost everything you'll ever need:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">&lt;!-- Links --&gt;</span>
+&lt;a href="https://example.com"&gt;Click here&lt;/a&gt;
+
+<span style="color: #61dafb">&lt;!-- Images --&gt;</span>
+&lt;img src="photo.jpg" alt="A dog sitting in the park"&gt;
+
+<span style="color: #61dafb">&lt;!-- Unordered list --&gt;</span>
+&lt;ul&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;
+
+<span style="color: #61dafb">&lt;!-- Form input --&gt;</span>
+&lt;input type="text" placeholder="Type something..."&gt;
+&lt;button&gt;Submit&lt;/button&gt;</code></div>
+                    <div class="info-box">
+                        <strong>💡 The <code>alt</code> attribute on images matters:</strong> Screen readers read it aloud to blind users. Always write a real description — not just "image" or "photo". It also shows if the image fails to load, and helps search engines understand what the image is.
+                    </div>
+
+                        ✏️ Edit the HTML below and click Preview:</div>
+                        <div class="code-editor">
+                            <div class="editor-pane">
+                                <div class="editor-label">HTML Code:</div>
+                                <textarea id="htmlInput"><h1>My Title</h1>
+<p>This is my first paragraph.</p>
+<button onclick="alert('Hello!')">Click me!</button></textarea>
+                                <button onclick="renderHtml()">▶ Preview</button>
+                            </div>
+                        </div>
+                        <div class="editor-label" style="margin-top: 10px;">Result:</div>
+                        <div class="preview" id="htmlPreview"></div>
+                    </div>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN: HTML Documentation</a></li>
+                            <li><a href="https://www.w3schools.com/html/" target="_blank">W3Schools HTML Tutorial</a></li>
+                            <li><a href="https://www.freecodecamp.org/learn/responsive-web-design/" target="_blank">FreeCodeCamp Web Design Course</a></li>
+                            <li><a href="https://html.spec.whatwg.org/" target="_blank">Official HTML Specification</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== CSS ==================== -->
+                <div id="css" class="section">
+                    <h2>CSS — make it look great</h2>
+
+                    <p>CSS stands for <strong>Cascading Style Sheets</strong>. HTML tells the browser <em>what</em> something is. CSS tells it <em>how it should look</em>. Colors, fonts, spacing, layout, animations — all of that is CSS.</p>
+
+                    <div class="analogy-box">
+                        <strong>🎨 Think of it like this:</strong> If HTML is the walls and rooms of a house, CSS is the paint, furniture and decoration. It decides how everything <em>looks and feels</em>.
+                    </div>
+
+                    <p>The word "Cascading" means that styles flow down and can overwrite each other. If you set a rule and then set another rule later, the later one wins (usually).</p>
+
+                    
+                    <h3>How a CSS rule is written</h3>
+                    <p>Every CSS rule has three parts: a <strong>selector</strong> (what to style), a <strong>property</strong> (what to change), and a <strong>value</strong> (what to set it to):</p>
+                    <div class="diagram">selector { property: value; }
+──────────  ─────────────────────
+    │            │           └── How much? Which colour? Which font?
+    │            └────────────── What do you want to change?
+    └─────────────────────────── Which HTML elements are you targeting?</div>
+                    <div class="code-block"><code>p {
+  color: #333333;
+  font-size: 16px;
+  line-height: 1.6;
+}</code></div>
+
+                    <h3>Units — how big is big?</h3>
+                    <p>CSS has several ways to express sizes. The right choice matters:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><code>px</code> — Pixels. Fixed size. Good for borders and small precise things.</li>
+                        <li><code>em</code> — Relative to the font size of the <em>parent</em> element. Scales with text.</li>
+                        <li><code>rem</code> — Relative to the root font size (usually 16px). More predictable than em.</li>
+                        <li><code>%</code> — A percentage of the parent's size. Great for flexible layouts.</li>
+                        <li><code>vw</code> / <code>vh</code> — A percentage of the screen width or height. 50vw = half the screen width.</li>
+                    </ul>
+                    <div class="analogy-box">
+                        <strong>💡 Think of it like this:</strong> <code>px</code> is like saying "exactly 30 centimetres" — fixed no matter what. <code>rem</code> is like saying "twice the normal text size" — it automatically adjusts if the user makes text bigger in their browser settings, which is good for accessibility.
+                    </div>
+
+                    <h3>CSS selectors — choosing what to style</h3>
+                    <p>A selector picks which HTML elements to apply a style to:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">/* Style all paragraphs */</span>
+p { color: blue; }
+
+<span style="color: #61dafb">/* Style elements with class="highlight" */</span>
+.highlight { background: yellow; }
+
+<span style="color: #61dafb">/* Style the element with id="header" */</span>
+#header { font-size: 24px; }
+
+<span style="color: #61dafb">/* Combine selectors */</span>
+p.intro { font-weight: bold; }
+
+<span style="color: #61dafb">/* Style a link when hovered */</span>
+a:hover { color: red; }
+button:active { transform: scale(0.95); }</code></div>
+
+                    
+                    <h3>Specificity — which rule wins?</h3>
+                    <p>If two CSS rules target the same element, the more <em>specific</em> one wins. Think of it as a points system:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>ID selector</strong> <code>#header</code> — 100 points. Strongest.</li>
+                        <li><strong>Class selector</strong> <code>.highlight</code> — 10 points.</li>
+                        <li><strong>Element selector</strong> <code>p</code> — 1 point. Weakest.</li>
+                    </ul>
+                    <div class="code-block"><code><span style="color: #61dafb">/* 1 point — applies green */</span>
+p { color: green; }
+
+<span style="color: #61dafb">/* 10 points — overrides with blue */</span>
+.intro { color: blue; }
+
+<span style="color: #61dafb">/* 100 points — overrides everything with red */</span>
+#main-text { color: red; }</code></div>
+                    <div class="info-box">
+                        <strong>💡 Tip:</strong> Try to rely on class selectors most of the time. Overusing IDs makes CSS hard to override later and harder for your future self to maintain.
+                    </div>
+
+                    <h3>The box model — everything is a box</h3>
+                    <p>Every element on a page is treated as a box. The box has four layers:</p>
+                    <div class="diagram">
+                        MARGIN — space outside the element<br>
+                        ├─ BORDER — the outline<br>
+                        │  ├─ PADDING — space between border and content<br>
+                        │  │  └─ CONTENT — the actual text or image
+                    </div>
+
+                    <h3>Flexbox and Grid — modern layout tools</h3>
+                    <p>These two CSS features make it much easier to place things on a page:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Flexbox:</strong> Lines things up in a row or column</li>
+                        <li><strong>Grid:</strong> Creates a full table-like layout with rows AND columns</li>
+                    </ul>
+
+                    <h3>Media queries — different styles for different screens</h3>
+                    <p>Media queries let you write CSS that only applies on certain screen sizes. This is how you make a site look good on both a phone and a laptop:</p>
+                    <div class="code-block"><code>@media (max-width: 768px) {
+  body { font-size: 14px; }
+  .sidebar { display: none; }
+}
+
+@media (prefers-color-scheme: dark) {
+  body { background: #333; color: white; }
+}</code></div>
+
+                    <h3>Try it yourself!</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">✏️ Edit the CSS below and click Apply Styles:</div>
+                        <div class="code-editor">
+                            <div class="editor-pane">
+                                <div class="editor-label">CSS Code:</div>
+                                <textarea id="cssInput">h1 {
+  color: blue;
+  font-size: 28px;
+  text-align: center;
+}
+
+p {
+  color: green;
+  font-size: 16px;
+  font-style: italic;
+}</textarea>
+                                <button onclick="renderCss()">▶ Apply Styles</button>
+                            </div>
+                        </div>
+                        <div class="editor-label" style="margin-top: 10px;">Result:</div>
+                        <div class="preview" id="cssPreview"></div>
+                    </div>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">MDN: CSS Documentation</a></li>
+                            <li><a href="https://www.w3schools.com/css/" target="_blank">W3Schools CSS Tutorial</a></li>
+                            <li><a href="https://cssgridgarden.com/" target="_blank">CSS Grid Garden (Interactive Game)</a></li>
+                            <li><a href="https://flexboxfroggy.com/" target="_blank">Flexbox Froggy (Interactive Game)</a></li>
+                            <li><a href="https://css-tricks.com/" target="_blank">CSS-Tricks (Articles &amp; Tips)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== JAVASCRIPT ==================== -->
+                <div id="js" class="section">
+                    <h2>JavaScript — make it interactive</h2>
+
+                    <p>JavaScript is a real programming language that runs right inside the browser. It makes web pages interactive. Without JavaScript, websites would be static — just text and images with no buttons, no animations, no live updates.</p>
+
+                    <div class="analogy-box">
+                        <strong>🧠 Think of it like this:</strong> If HTML is the structure and CSS the looks, JavaScript is the brain. It makes things <em>happen</em> and <em>react</em> to what you do — clicking a button, submitting a form, playing a video.
+                    </div>
+
+                    <p>JavaScript started out just for browsers, but now it runs everywhere. Servers (Node.js), mobile apps (React Native), desktop apps (Electron) — all JavaScript. It's probably the most popular programming language in the world.</p>
+
+                    
+                    <h3>Variables — storing information</h3>
+                    <p>A variable is a named container that holds a value. Use <code>const</code> for values that won't change, and <code>let</code> for values that will:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">const</span> name = <span style="color: #98c379">'Alex'</span>;        <span style="color: #61dafb">// text — called a string</span>
+<span style="color: #61dafb">const</span> age = 16;               <span style="color: #61dafb">// a number</span>
+<span style="color: #61dafb">const</span> loggedIn = <span style="color: #61dafb">true</span>;        <span style="color: #61dafb">// true or false — called a boolean</span>
+<span style="color: #61dafb">let</span> score = 0;                <span style="color: #61dafb">// can change later</span>
+score = score + 10;           <span style="color: #61dafb">// now score is 10</span>
+
+<span style="color: #61dafb">const</span> colours = [<span style="color: #98c379">'red'</span>, <span style="color: #98c379">'green'</span>, <span style="color: #98c379">'blue'</span>];   <span style="color: #61dafb">// a list — called an array</span>
+<span style="color: #61dafb">const</span> user = { name: <span style="color: #98c379">'Alex'</span>, age: 16 }; <span style="color: #61dafb">// key-value pairs — called an object</span></code></div>
+
+                    <h3>Functions — reusable blocks of code</h3>
+                    <p>A function is a named block of code you can call whenever you need it:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">function</span> greet(name) {
+  <span style="color: #61dafb">return</span> <span style="color: #98c379">'Hello, '</span> + name + <span style="color: #98c379">'!'</span>;
+}
+
+console.log(greet(<span style="color: #98c379">'Alex'</span>)); <span style="color: #61dafb">// prints: Hello, Alex!</span>
+console.log(greet(<span style="color: #98c379">'Sam'</span>));  <span style="color: #61dafb">// prints: Hello, Sam!</span></code></div>
+
+                    <h3>Making decisions — if and else</h3>
+                    <p>Use <code>if</code> to run code only when a condition is true:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">const</span> score = 75;
+
+<span style="color: #61dafb">if</span> (score >= 55) {
+  console.log(<span style="color: #98c379">'You passed!'</span>);
+} <span style="color: #61dafb">else</span> {
+  console.log(<span style="color: #98c379">'Try again.'</span>);
+}</code></div>
+
+                    <h3>What can JavaScript do?</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>React to clicks, typing, scrolling — anything you do</li>
+                        <li>Change what's on the page without reloading it</li>
+                        <li>Save data in the browser (like your shopping cart)</li>
+                        <li>Send and receive data from servers (like loading new posts)</li>
+                        <li>Check if a form is filled in correctly before sending it</li>
+                        <li>Create animations and visual effects</li>
+                        <li>Build games (think browser-based games!)</li>
+                        <li>Chat in real time (like WhatsApp Web)</li>
+                    </ul>
+
+                    
+                    <h3>The DOM — how JavaScript talks to HTML</h3>
+                    <p>When a browser loads your HTML, it builds a tree of objects from it. This tree is called the <strong>DOM</strong> (Document Object Model). JavaScript can find, read, and change any part of that tree — that's how it makes pages interactive.</p>
+                    <div class="analogy-box">
+                        <strong>🌳 Think of it like this:</strong> The DOM is a family tree for your HTML. <code>&lt;html&gt;</code> is the root. <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are its children. Everything inside <code>&lt;body&gt;</code> branches off from there. JavaScript can reach any branch, read it, change it, or add new ones.
+                    </div>
+                    <div class="code-block"><code><span style="color: #61dafb">// Find an element by its id attribute</span>
+<span style="color: #61dafb">const</span> title = document.getElementById(<span style="color: #98c379">'main-title'</span>);
+title.textContent = <span style="color: #98c379">'Updated by JavaScript!'</span>;
+
+<span style="color: #61dafb">// querySelector works like a CSS selector</span>
+<span style="color: #61dafb">const</span> btn = document.querySelector(<span style="color: #98c379">'.my-button'</span>);
+
+<span style="color: #61dafb">// Listen for events — like a button click</span>
+btn.addEventListener(<span style="color: #98c379">'click'</span>, <span style="color: #61dafb">function</span>() {
+  title.textContent = <span style="color: #98c379">'You clicked the button!'</span>;
+});</code></div>
+
+                    <h3>Popular JavaScript frameworks</h3>
+                    <p>For big projects, developers use frameworks — ready-made tools that speed things up:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>React:</strong> Made by Facebook — very widely used for building interfaces</li>
+                        <li><strong>Vue.js:</strong> A bit simpler than React, great for beginners</li>
+                        <li><strong>Angular:</strong> Made by Google — large and powerful</li>
+                        <li><strong>Svelte:</strong> Newer, very fast, less code to write</li>
+                        <li><strong>Next.js:</strong> React with extra features like server-side rendering</li>
+                    </ul>
+
+                    
+                    <h3>TypeScript — JavaScript with safety rails</h3>
+                    <p>TypeScript is JavaScript with one extra feature: <strong>types</strong>. You declare what kind of data each variable is allowed to hold, and TypeScript warns you before you run the code if something looks wrong.</p>
+                    <div class="analogy-box">
+                        <strong>🛡️ Think of it like this:</strong> JavaScript lets you put anything in any container. TypeScript labels each container — "numbers only", "text only". If you put the wrong thing in by accident, TypeScript catches it immediately — before the app even runs.
+                    </div>
+                    <div class="code-block"><code><span style="color: #61dafb">// JavaScript — no types, no warnings</span>
+<span style="color: #61dafb">let</span> score = 100;
+score = <span style="color: #98c379">"oops, a string now"</span>; <span style="color: #61dafb">// JavaScript is fine with this</span>
+
+<span style="color: #61dafb">// TypeScript — types declared</span>
+<span style="color: #61dafb">let</span> score: number = 100;
+score = <span style="color: #98c379">"oops, a string now"</span>; <span style="color: #61dafb">// ❌ TypeScript warns you right away</span>
+
+<span style="color: #61dafb">// Functions with typed parameters and return value</span>
+<span style="color: #61dafb">function</span> greet(name: string): string {
+  <span style="color: #61dafb">return</span> <span style="color: #98c379">'Hello, '</span> + name;
+}</code></div>
+                    <p>TypeScript doesn't run directly in the browser — it gets compiled into regular JavaScript first. Most major frameworks (React, Vue, Angular) work seamlessly with TypeScript, and most professional teams use it.</p>
+                    <div class="info-box">
+                        <strong>💡 Should you learn TypeScript?</strong> Start with JavaScript first. Once you're comfortable with variables, functions, and the DOM, TypeScript is much easier to pick up. It's well worth learning before your first developer job.
+                    </div>
+
+                    <h3>Async JavaScript — doing things without waiting</h3>
+                    <p>When your browser asks a server for data, it doesn't freeze and wait. It keeps running and handles the answer when it arrives. This is called <em>asynchronous</em> code:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">// Promises — cleaner than deeply nested callbacks</span>
+fetch('/api/data')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));
+
+<span style="color: #61dafb">// Async/await (modern and cleanest)</span>
+<span style="color: #61dafb">async function</span> fetchData() {
+  <span style="color: #61dafb">const</span> response = <span style="color: #61dafb">await</span> fetch('/api/data');
+  <span style="color: #61dafb">const</span> data = <span style="color: #61dafb">await</span> response.json();
+  <span style="color: #61dafb">return</span> data;
+}</code></div>
+
+                    <h3>Try it yourself!</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">✏️ Click the buttons to run JavaScript:</div>
+                        <button onclick="jsDemo1()">🕐 Show Current Time</button>
+                        <button onclick="jsDemo2()">🔢 Calculate: 5 + 3</button>
+                        <button onclick="jsDemo3()">👋 Say Hello</button>
+                        <div id="jsOutput" class="output" style="display: none; margin-top: 15px;"></div>
+                    </div>
+
+                    <h3>Interactive calculator</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">✏️ Enter two numbers and click Add:</div>
+                        <input type="number" id="num1" placeholder="First number">
+                        <input type="number" id="num2" placeholder="Second number">
+                        <button onclick="calculateSum()">➕ Add</button>
+                        <div id="calcOutput" class="output" style="display: none; margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">MDN: JavaScript Documentation</a></li>
+                            <li><a href="https://javascript.info/" target="_blank">JavaScript.info (In Depth)</a></li>
+                            <li><a href="https://eloquentjavascript.net/" target="_blank">Eloquent JavaScript (Free book online)</a></li>
+                            <li><a href="https://www.codecademy.com/learn/learn-javascript" target="_blank">Codecademy JavaScript Course</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== PHP ==================== -->
+                <div id="servers" class="section">
+                    <h2>Servers &amp; hosting</h2>
+
+                    <h3>Servers — the computers that run the web</h3>
+                    <p>A <strong>server</strong> is a computer whose job is to wait for requests and respond to them. When your browser makes an HTTP request, it's talking to a server. The server runs the code, reads from the database, and sends back a response. Everything in this section — PHP, JSON, databases — lives and runs on a server.</p>
+                    <div class="analogy-box">
+                        <strong>🍕 Think of it like this:</strong> You're ordering pizza. The pizza place (the server) is always open, waiting for orders. You call up and place your order (the HTTP request), and they send the pizza back (the HTTP response). The pizza place doesn't call you — it waits for you to call first. And the kitchen — with all the ingredients, equipment, and recipes — is the backend you never see.
+                    </div>
+                    <p>Servers are normal computers — they just run all day, every day, and have a fast internet connection. They live in <strong>data centres</strong>: large buildings with row upon row of computers, kept cool and connected to the internet at high speed.</p>
+
+                    <h3>VPS — renting your own server</h3>
+                    <p>Unless you work at a big tech company, you don't usually own a server. You rent one. The most common way is a <strong>VPS</strong> — a Virtual Private Server.</p>
+                    <p>A VPS takes one large physical server and splits it into many smaller virtual servers. Each one acts like its own independent computer, with its own operating system, storage, and network connection. You install PHP, a database, a web server like nginx — whatever your app needs — and it runs around the clock.</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Shared hosting:</strong> Cheapest option. Many websites share the same server. Limited control. Fine for simple sites.</li>
+                        <li><strong>VPS:</strong> Your own slice of a server. More control, better performance. Good for most web apps.</li>
+                        <li><strong>Dedicated server:</strong> An entire physical machine just for you. Expensive, but maximum power.</li>
+                        <li><strong>Cloud (AWS, Google Cloud, Azure):</strong> Rent as many virtual servers as you need and scale up or down instantly.</li>
+                    </ul>
+                    <div class="info-box">
+                        <strong>💡 Good places to start:</strong> DigitalOcean, Hetzner, and Vultr are popular VPS providers that developers recommend for their simplicity and fair pricing. A basic VPS costs around $4–6 per month.
+                    </div>
+
+                </div>
+
+                <div id="php" class="section">
+                    <h2>PHP — programming on the server</h2>
+
+                    <p>PHP stands for <strong>Hypertext Preprocessor</strong>. The big difference from JavaScript is that PHP runs on the <em>server</em>, not in your browser. That means:</p>
+                    <ul style="margin-left: 20px; line-height: 2; margin-top: 10px;">
+                        <li>Visitors can never see your PHP code — they only ever get HTML back</li>
+                        <li>You can safely connect to databases</li>
+                        <li>You can do heavy work on the server before sending a response</li>
+                        <li>You can show different content to different users</li>
+                    </ul>
+
+                    <div class="analogy-box">
+                        <strong>👨‍🍳 Think of it like this:</strong> PHP is like a chef in a restaurant. You (the browser) place your order (the request). The chef works in the kitchen (the server — fully hidden). You get your finished meal (the response). You never see what happened in the kitchen.
+                    </div>
+
+                    <h3>How PHP works, step by step</h3>
+                    <div class="diagram">
+                        Browser sends a request<br>
+                        ↓<br>
+                        Server receives it<br>
+                        ↓<br>
+                        Server runs the PHP code<br>
+                        ↓<br>
+                        PHP builds an HTML page<br>
+                        ↓<br>
+                        Server sends that HTML to the browser<br>
+                        ↓<br>
+                        Browser shows the page
+                    </div>
+
+                    <h3>PHP + HTML = dynamic pages</h3>
+                    <p>PHP can generate different HTML depending on who's visiting or what time it is:</p>
+                    <div class="code-block"><code><span style="color: #e06c75">&lt;?php</span>
+  <span style="color: #61dafb">$currentTime</span> = date('H:i:s');
+  <span style="color: #61dafb">$user</span> = <span style="color: #98c379">"Alex"</span>;
+
+  <span style="color: #61dafb">if</span> (<span style="color: #61dafb">$currentTime</span> &lt; <span style="color: #98c379">"12:00:00"</span>) {
+    <span style="color: #61dafb">echo</span> <span style="color: #98c379">"Good morning, "</span> . <span style="color: #61dafb">$user</span>;
+  } <span style="color: #61dafb">else</span> {
+    <span style="color: #61dafb">echo</span> <span style="color: #98c379">"Good afternoon, "</span> . <span style="color: #61dafb">$user</span>;
+  }
+<span style="color: #e06c75">?&gt;</span></code></div>
+
+                    <h3>Security — this is really important!</h3>
+                    <p>Because PHP runs on the server and often talks to databases, bad security can cause serious damage. Here are the most common dangers:</p>
+
+                    <div class="warning-box">
+                        <strong>⚠️ SQL Injection:</strong> A hacker types database commands into a form field to steal or destroy your data.
+                    </div>
+                    <div class="code-block"><code><span style="color: #61dafb">// WRONG — dangerous!</span>
+<span style="color: #61dafb">$sql</span> = <span style="color: #98c379">"SELECT * FROM users WHERE email = '"</span> . <span style="color: #61dafb">$email</span> . <span style="color: #98c379">"'"</span>;
+
+<span style="color: #61dafb">// CORRECT — safe with prepared statements</span>
+<span style="color: #61dafb">$stmt</span> = <span style="color: #61dafb">$pdo</span>-&gt;prepare(<span style="color: #98c379">"SELECT * FROM users WHERE email = ?"</span>);
+<span style="color: #61dafb">$stmt</span>-&gt;execute([<span style="color: #61dafb">$email</span>]);</code></div>
+
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>XSS (Cross-Site Scripting):</strong> Malicious code injected into your page — use <code>htmlspecialchars()</code></li>
+                        <li><strong>CSRF:</strong> Fake form submissions that trick logged-in users — use tokens</li>
+                        <li><strong>Passwords:</strong> Never store them as plain text — always hash them with <code>password_hash()</code></li>
+                        <li><strong>File uploads:</strong> Always check the file type and size</li>
+                    </ul>
+
+                    <h3>PHP best practices today</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Use a framework:</strong> Laravel or Symfony — don't write everything from scratch</li>
+                        <li><strong>Use prepared statements:</strong> To prevent SQL injection</li>
+                        <li><strong>Validate all input:</strong> Never trust what users send</li>
+                        <li><strong>Escape output:</strong> So HTML characters don't cause problems</li>
+                        <li><strong>Always use HTTPS:</strong> Never send data unencrypted</li>
+                    </ul>
+
+                    <h3>Try it yourself!</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">✏️ See how PHP would handle a request on a server:</div>
+                        <input type="text" id="phpName" placeholder="Enter your name">
+                        <button onclick="simulatePhp()">▶ Simulate PHP Processing</button>
+                        <div id="phpOutput" class="output" style="display: none; margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://www.php.net/manual/en/" target="_blank">Official PHP Documentation</a></li>
+                            <li><a href="https://www.w3schools.com/php/" target="_blank">W3Schools PHP Tutorial</a></li>
+                            <li><a href="https://phptherightway.com/" target="_blank">PHP The Right Way (Best Practices)</a></li>
+                            <li><a href="https://laravel.com/" target="_blank">Laravel (Modern PHP Framework)</a></li>
+                            <li><a href="https://www.owasp.org/index.php/PHP" target="_blank">OWASP PHP Security</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== JSON ==================== -->
+                <div id="json" class="section">
+                    <h2>JSON — the web's standard data format</h2>
+
+                    <p>JSON stands for <strong>JavaScript Object Notation</strong>. It's a simple way to write structured data as text. The cool thing about JSON is that it works with <em>every</em> programming language — it's not tied to JavaScript at all.</p>
+
+                    <div class="analogy-box">
+                        <strong>📦 Think of it like this:</strong> JSON is like a standard shipping box. No matter who packed it or who receives it, everyone knows how to open it and read what's inside. Any programming language can read JSON.
+                    </div>
+
+                    <p>JSON is everywhere on the web. When Instagram loads your feed, when Google Maps shows you directions, when a weather app shows the forecast — that data almost certainly arrives as JSON.</p>
+
+                    <h3>Why use JSON?</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Easy to read:</strong> Both humans and computers can understand it</li>
+                        <li><strong>Compact:</strong> Takes up less space than older formats like XML</li>
+                        <li><strong>Flexible:</strong> You can nest data inside data</li>
+                        <li><strong>Universal:</strong> Supported by every modern language and platform</li>
+                        <li><strong>Fast:</strong> Quick to parse and generate</li>
+                    </ul>
+
+                    <h3>JSON data types</h3>
+                    <p>JSON can hold these types of values:</p>
+                    <div class="code-block"><code>{
+  <span style="color: #98c379">"string"</span>: <span style="color: #98c379">"text"</span>,
+  <span style="color: #98c379">"number"</span>: <span style="color: #61dafb">42</span>,
+  <span style="color: #98c379">"decimal"</span>: <span style="color: #61dafb">3.14</span>,
+  <span style="color: #98c379">"boolean"</span>: <span style="color: #61dafb">true</span>,
+  <span style="color: #98c379">"null_value"</span>: <span style="color: #61dafb">null</span>,
+  <span style="color: #98c379">"array"</span>: [<span style="color: #61dafb">1</span>, <span style="color: #61dafb">2</span>, <span style="color: #61dafb">3</span>],
+  <span style="color: #98c379">"object"</span>: { <span style="color: #98c379">"nested"</span>: <span style="color: #98c379">"value"</span> }
+}</code></div>
+
+                    <h3>A real example — what an API might send back</h3>
+                    <div class="code-block"><code>{
+  <span style="color: #98c379">"status"</span>: <span style="color: #98c379">"success"</span>,
+  <span style="color: #98c379">"data"</span>: {
+    <span style="color: #98c379">"id"</span>: <span style="color: #61dafb">123</span>,
+    <span style="color: #98c379">"name"</span>: <span style="color: #98c379">"Alex"</span>,
+    <span style="color: #98c379">"email"</span>: <span style="color: #98c379">"alex@example.com"</span>,
+    <span style="color: #98c379">"loggedIn"</span>: <span style="color: #61dafb">true</span>,
+    <span style="color: #98c379">"interests"</span>: [<span style="color: #98c379">"web"</span>, <span style="color: #98c379">"games"</span>],
+    <span style="color: #98c379">"license"</span>: {
+      <span style="color: #98c379">"premium"</span>: <span style="color: #61dafb">true</span>,
+      <span style="color: #98c379">"expires_on"</span>: <span style="color: #98c379">"2025-12-31"</span>
+    }
+  }
+}</code></div>
+
+                    <h3>Try it yourself!</h3>
+                    <div class="interactive-demo">
+                        <div class="demo-title">✏️ Click to see JSON examples:</div>
+                        <button onclick="showJsonExample1()">👤 Person Object</button>
+                        <button onclick="showJsonExample2()">🎓 Array of Students</button>
+                        <button onclick="showJsonExample3()">🏢 Nested Data</button>
+                        <div id="jsonDisplay" class="output" style="display: none; margin-top: 15px;"></div>
+                    </div>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://www.json.org/json-en.html" target="_blank">Official JSON Website</a></li>
+                            <li><a href="https://www.w3schools.com/js/js_json.asp" target="_blank">W3Schools JSON Explanation</a></li>
+                            <li><a href="https://www.jsonlint.com/" target="_blank">JSONLint (Check if your JSON is valid)</a></li>
+                            <li><a href="https://jsoncrack.com/" target="_blank">JSON Crack (Visualize JSON as a diagram)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== HTTP/HTTPS ==================== -->
+                <div id="http" class="section">
+                    <h2>HTTP/HTTPS — how browsers and servers talk</h2>
+
+                    <p>HTTP stands for <strong>HyperText Transfer Protocol</strong>. It's the set of rules that browsers and servers use to communicate. Every time you open a website, an HTTP request happens — you just never see it.</p>
+
+                    <div class="analogy-box">
+                        <strong>🔒 Think of it like this:</strong> HTTP is the language your browser and the server speak to each other. HTTPS is the same language but with a digital lock — everything is scrambled so nobody can spy on it.
+                    </div>
+
+                    <p>HTTPS is HTTP with encryption. The "S" stands for Secure. Almost all websites today use HTTPS because it protects your passwords, credit card numbers, and other private data.</p>
+
+                                        <h3>What an HTTP request looks like</h3>
+                    <p>When you type a URL and press Enter, your browser sends something like this:</p>
+                    <div class="code-block"><code>GET /page.html HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+Accept: text/html,application/xhtml+xml
+Connection: close
+
+(optional: request body for POST)</code></div>
+
+                    <h3>What an HTTP response looks like</h3>
+                    <p>The server replies with something like this:</p>
+                    <div class="code-block"><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1234
+Set-Cookie: session=abc123
+
+&lt;html&gt;...the page content...&lt;/html&gt;</code></div>
+
+                    <h3>HTTP methods — what do you want to do?</h3>
+                    <table>
+                        <tr style="background: #f8f9fa;">
+                            <th>Method</th>
+                            <th>What it does</th>
+                            <th>Safe?</th>
+                            <th>Has body?</th>
+                        </tr>
+                        <tr><td><strong>GET</strong></td><td>Get data from the server</td><td>Yes</td><td>No</td></tr>
+                        <tr><td><strong>POST</strong></td><td>Send new data to the server</td><td>No</td><td>Yes</td></tr>
+                        <tr><td><strong>PUT</strong></td><td>Replace existing data</td><td>No</td><td>Yes</td></tr>
+                        <tr><td><strong>PATCH</strong></td><td>Update part of existing data</td><td>No</td><td>Yes</td></tr>
+                        <tr><td><strong>DELETE</strong></td><td>Delete data from the server</td><td>No</td><td>No</td></tr>
+                    </table>
+
+                    <h3>HTTP status codes — what happened?</h3>
+                    <p>Every response has a number that tells you if things went well or not:</p>
+                    <div style="margin: 20px 0;">
+                        <strong>2xx — Success:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><code>200 OK</code> — Everything worked fine</li>
+                            <li><code>201 Created</code> — New item was created</li>
+                            <li><code>204 No Content</code> — Worked fine, but nothing to send back</li>
+                        </ul>
+                        <strong>3xx — Redirected:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><code>301 Moved Permanently</code> — Page has a new permanent address</li>
+                            <li><code>302 Found</code> — Page is temporarily somewhere else</li>
+                            <li><code>304 Not Modified</code> — Your cached version is still fine</li>
+                        </ul>
+                        <strong>4xx — You made a mistake:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><code>400 Bad Request</code> — Your request doesn't make sense</li>
+                            <li><code>401 Unauthorized</code> — You need to log in first</li>
+                            <li><code>403 Forbidden</code> — You're logged in but not allowed</li>
+                            <li><code>404 Not Found</code> — That page doesn't exist</li>
+                        </ul>
+                        <strong>5xx — The server made a mistake:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><code>500 Internal Server Error</code> — Something crashed on the server</li>
+                            <li><code>503 Service Unavailable</code> — Server is down or overloaded</li>
+                        </ul>
+                    </div>
+
+                    <h3>HTTP headers — extra info on every request</h3>
+                    <p>Headers are like sticky notes attached to every request and response. They carry extra info:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><code>Content-Type:</code> What kind of data this is (HTML, JSON, image, etc.)</li>
+                        <li><code>Content-Length:</code> How big the data is</li>
+                        <li><code>Cache-Control:</code> Can the browser save this for later?</li>
+                        <li><code>Authorization:</code> A token proving you're logged in</li>
+                        <li><code>Set-Cookie:</code> Store a small piece of data in the browser</li>
+                        <li><code>Access-Control-Allow-Origin:</code> Which websites are allowed to use this data (CORS)</li>
+                    </ul>
+
+                    <h3>HTTP/2 and HTTP/3</h3>
+                    <p>Newer versions of HTTP are faster. HTTP/2 can send many requests at once. HTTP/3 is even faster, using a newer protocol called QUIC.</p>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank">MDN: HTTP</a></li>
+                            <li><a href="https://www.cloudflare.com/learning/ssl/what-is-https/" target="_blank">Cloudflare: What is HTTPS?</a></li>
+                            <li><a href="https://tools.ietf.org/html/rfc7231" target="_blank">RFC 7231 (HTTP/1.1 Specification)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== DNS ==================== -->
+                <div id="dns" class="section">
+                    <h2>DNS — the internet's phone book</h2>
+
+                    <p>DNS stands for <strong>Domain Name System</strong>. Without DNS, you couldn't type "google.com" into your browser — you'd have to know the actual IP address (like 142.250.74.46). DNS translates domain names into IP addresses that computers can use.</p>
+
+                    <div class="analogy-box">
+                        <strong>📕 Think of it like this:</strong> DNS is like a phone book for the internet. You look up a name (google.com) and it tells you the number (the IP address). Then your browser can make the call.
+                    </div>
+
+                    <p>DNS is one of the most important systems on the internet. Billions of DNS lookups happen every single day. If DNS goes down, huge parts of the internet stop working.</p>
+
+                    <h3>How DNS works, step by step</h3>
+                    <div class="diagram">
+                        1. Browser checks its own cache first<br>
+                        ↓<br>
+                        2. Asks the Recursive Resolver (usually your ISP)<br>
+                        ↓<br>
+                        3. Resolver asks a Root Nameserver<br>
+                        ↓<br>
+                        4. Root says: "Ask the TLD nameserver for .com"<br>
+                        ↓<br>
+                        5. TLD says: "Ask the authoritative nameserver for that domain"<br>
+                        ↓<br>
+                        6. Authoritative server gives back the IP address<br>
+                        ↓<br>
+                        7. Browser gets the IP and connects!
+                    </div>
+
+                    <h3>DNS record types</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>A Record:</strong> Links a domain to an IPv4 address (like 192.0.2.1)</li>
+                        <li><strong>AAAA Record:</strong> Links a domain to an IPv6 address (the newer, longer format)</li>
+                        <li><strong>CNAME:</strong> An alias — "this domain is the same as that one"</li>
+                        <li><strong>MX Record:</strong> Which server handles email for this domain</li>
+                        <li><strong>TXT Record:</strong> Text info — used for verification, spam protection, etc.</li>
+                        <li><strong>NS Record:</strong> Which nameserver is responsible for this domain</li>
+                    </ul>
+
+                    <h3>DNS caching — saving lookups for later</h3>
+                    <p>DNS lookups take time, so results are saved (cached) at several points:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Browser cache:</strong> Your browser remembers recent lookups for a few minutes</li>
+                        <li><strong>OS cache:</strong> Your computer also saves lookups</li>
+                        <li><strong>ISP cache:</strong> Your internet provider caches them too</li>
+                        <li><strong>TTL (Time To Live):</strong> How long a result can be cached — set by the domain owner</li>
+                    </ul>
+
+                    <h3>DNS security</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>DNSSEC:</strong> Adds digital signatures to prevent fake DNS responses</li>
+                        <li><strong>DoH (DNS over HTTPS):</strong> Encrypts DNS lookups so no one can spy on which sites you visit</li>
+                        <li><strong>DoT (DNS over TLS):</strong> Same idea, different method</li>
+                    </ul>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://www.cloudflare.com/learning/dns/what-is-dns/" target="_blank">Cloudflare: What is DNS?</a></li>
+                            <li><a href="https://tools.ietf.org/html/rfc1035" target="_blank">RFC 1035 (DNS Specification)</a></li>
+                            <li><a href="https://mxtoolbox.com/" target="_blank">MXToolbox (Check DNS records)</a></li>
+                            <li><a href="https://www.nslookup.io/" target="_blank">nslookup.io (Online DNS Lookup)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== APIs ==================== -->
+                <div id="api" class="section">
+                    <h2>APIs — how apps talk to each other</h2>
+
+                    <p>API stands for <strong>Application Programming Interface</strong>. An API is a set of rules for how two programs can communicate. One program says "give me this", and the API defines exactly what comes back.</p>
+
+                    <div class="analogy-box">
+                        <strong>🍽️ Think of it like this:</strong> An API is like a menu in a restaurant. You pick what you want from the menu (the API). The kitchen (the server) makes it and sends it out. You don't need to know how it was cooked — just what to order.
+                    </div>
+
+                    <p>APIs are everywhere. When your weather app shows the forecast, it's calling a weather API. When you log in with Google, that's OAuth — a type of API. When a map loads in an app, that's the Google Maps API.</p>
+
+                    <h3>Why are APIs useful?</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Abstraction:</strong> You don't need to understand the internals — just the interface</li>
+                        <li><strong>Reusability:</strong> Many apps can use the same API</li>
+                        <li><strong>Security:</strong> You only expose what you want to share</li>
+                        <li><strong>Flexibility:</strong> The inside can change without breaking the outside</li>
+                        <li><strong>Standard:</strong> Everyone speaks the same language</li>
+                    </ul>
+
+                    <h3>REST APIs — the most common style</h3>
+                    <p>REST (Representational State Transfer) is the most popular way to design web APIs. A good REST API follows these ideas:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Resources:</strong> Everything is a "thing" you can address, like <code>/users</code> or <code>/posts</code></li>
+                        <li><strong>HTTP Methods:</strong> GET to read, POST to create, PUT/PATCH to update, DELETE to remove</li>
+                        <li><strong>Stateless:</strong> Each request contains all the info needed — no memory between requests</li>
+                        <li><strong>JSON:</strong> Data is usually sent and received as JSON</li>
+                        <li><strong>Status codes:</strong> Use the right HTTP status code for each response</li>
+                    </ul>
+
+                    <h3>A real example — Twitter API</h3>
+                    <div class="code-block"><code><span style="color: #61dafb">GET</span>    /2/tweets/:id          → Get a specific tweet
+<span style="color: #61dafb">POST</span>   /2/tweets              → Post a new tweet
+<span style="color: #61dafb">DELETE</span> /2/tweets/:id          → Delete a tweet
+<span style="color: #61dafb">GET</span>    /2/users/:id/following → Get who this user follows</code></div>
+
+                    <h3>Authentication — proving who you are</h3>
+                    <p>Most APIs require you to prove your identity before they'll respond:</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>API Keys:</strong> A secret code you include in every request</li>
+                        <li><strong>OAuth 2.0:</strong> The standard used by Google, Facebook, GitHub, etc.</li>
+                        <li><strong>JWT (JSON Web Tokens):</strong> A small token that proves who you are</li>
+                        <li><strong>HTTP Basic Auth:</strong> Username and password (only safe over HTTPS)</li>
+                    </ul>
+
+                    <h3>GraphQL — a newer alternative</h3>
+                    <p>GraphQL lets you ask for <em>exactly</em> the fields you need — no more, no less. This avoids downloading data you don't use:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">query</span> {
+  user(id: 1) {
+    name
+    email
+    posts {
+      title
+      date
+    }
+  }
+}</code></div>
+
+                    <h3>Rate limiting — don't overload the server</h3>
+                    <p>Most APIs limit how many requests you can make. If you go over the limit, you get a 429 error. A typical limit might be 1000 requests per hour.</p>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://restfulapi.net/" target="_blank">RESTful API Tutorial</a></li>
+                            <li><a href="https://graphql.org/" target="_blank">GraphQL Official Site</a></li>
+                            <li><a href="https://www.postman.com/" target="_blank">Postman (Test APIs easily)</a></li>
+                            <li><a href="https://swagger.io/" target="_blank">Swagger/OpenAPI (API Documentation)</a></li>
+                            <li><a href="https://developer.twitter.com/" target="_blank">Twitter API (Real Example)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== DATABASES ==================== -->
+                <div id="db" class="section">
+                    <h2>Databases — storing data permanently</h2>
+
+                    <p>A database is an organized way to store lots of data so you can find it again quickly. Your user account on any website, your saved posts, your order history — all of that lives in a database.</p>
+
+                    <div class="analogy-box">
+                        <strong>📚 Think of it like this:</strong> A database is like a super-fast, super-smart spreadsheet. You can store millions of rows and search through them in milliseconds. Try that in Excel!
+                    </div>
+
+                    <h3>SQL vs NoSQL — two different approaches</h3>
+                    <p>There are two main types of databases, and they work very differently:</p>
+                    <div style="margin: 20px 0;">
+                        <strong>SQL (Relational databases) — structured and strict:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Structure:</strong> Tables with rows and columns, like a spreadsheet</li>
+                            <li><strong>Schema:</strong> You must define the columns before you can add data</li>
+                            <li><strong>ACID:</strong> Transactions are reliable and safe</li>
+                            <li><strong>Examples:</strong> MySQL, PostgreSQL, SQLite, SQL Server</li>
+                            <li><strong>Good for:</strong> Bank accounts, orders, anything where accuracy matters</li>
+                        </ul>
+                        <strong>NoSQL (Document databases) — flexible and fast:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li><strong>Structure:</strong> Documents (think JSON objects)</li>
+                            <li><strong>Schema:</strong> Flexible — each document can have different fields</li>
+                            <li><strong>Scalable:</strong> Easy to spread across many servers</li>
+                            <li><strong>Examples:</strong> MongoDB, Firebase, CouchDB</li>
+                            <li><strong>Good for:</strong> User profiles, content, logs, anything that changes a lot</li>
+                        </ul>
+                    </div>
+
+                    <h3>SQL in action</h3>
+                    <div class="code-block"><code><span style="color: #61dafb">-- Get all users</span>
+<span style="color: #61dafb">SELECT</span> * <span style="color: #61dafb">FROM</span> users;
+
+<span style="color: #61dafb">-- Filter and sort</span>
+<span style="color: #61dafb">SELECT</span> name, email <span style="color: #61dafb">FROM</span> users
+<span style="color: #61dafb">WHERE</span> city = <span style="color: #98c379">'Amsterdam'</span>
+<span style="color: #61dafb">ORDER BY</span> name;
+
+<span style="color: #61dafb">-- Count users per city</span>
+<span style="color: #61dafb">SELECT</span> city, <span style="color: #61dafb">COUNT</span>(*) <span style="color: #61dafb">FROM</span> users
+<span style="color: #61dafb">GROUP BY</span> city;
+
+<span style="color: #61dafb">-- Join two tables together</span>
+<span style="color: #61dafb">SELECT</span> users.name, posts.title
+<span style="color: #61dafb">FROM</span> users
+<span style="color: #61dafb">JOIN</span> posts <span style="color: #61dafb">ON</span> users.id = posts.user_id;</code></div>
+
+                    <h3>Indexes — making searches faster</h3>
+                    <p>An index is like the index at the back of a book. Instead of reading every page to find something, you jump straight to it. Indexes make database searches much faster, but they take up extra space.</p>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Primary Key:</strong> A unique ID for every row</li>
+                        <li><strong>Foreign Key:</strong> A link to a row in another table</li>
+                        <li><strong>Trade-off:</strong> Faster to read, a little slower to write</li>
+                    </ul>
+
+                    <h3>Database security</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Backups:</strong> Always back up your data!</li>
+                        <li><strong>Access control:</strong> Not everyone should be able to read or change everything</li>
+                        <li><strong>Encryption:</strong> Encrypt sensitive data like passwords</li>
+                        <li><strong>Parameterized queries:</strong> Protect against SQL injection attacks</li>
+                    </ul>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://www.w3schools.com/sql/" target="_blank">W3Schools SQL Tutorial</a></li>
+                            <li><a href="https://www.postgresql.org/docs/" target="_blank">PostgreSQL Documentation</a></li>
+                            <li><a href="https://sqlzoo.net/" target="_blank">SQLzoo (Learn SQL interactively)</a></li>
+                            <li><a href="https://dbdiagram.io/" target="_blank">dbdiagram.io (Draw database diagrams)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== FRONTEND/BACKEND ==================== -->
+                <div id="architecture" class="section">
+                    <h2>Frontend vs backend — the two halves of a web app</h2>
+
+                    <p>Every professional web application has two main parts. They run on different computers and talk to each other over the internet.</p>
+
+                    <div class="analogy-box">
+                        <strong>🏪 Think of it like this:</strong> Frontend is the shop floor — what customers see and interact with. Backend is the stockroom — where all the real work happens, completely out of sight.
+                    </div>
+
+                    <h3>Frontend — what runs in your browser</h3>
+                    <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <strong>Technologies:</strong> HTML, CSS, JavaScript, React, Vue, Angular<br>
+                        <strong>Runs on:</strong> Your device (phone, laptop, etc.)<br>
+                        <strong>What it does:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>Shows the interface — buttons, menus, text, images</li>
+                            <li>Responds to clicks and typing instantly, no waiting</li>
+                            <li>Checks form input before sending it to the server</li>
+                            <li>Sends requests to the backend</li>
+                            <li>Displays the data it gets back (usually JSON)</li>
+                            <li>Can work offline with service workers</li>
+                        </ul>
+                        <strong>Advantages:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Fast — reacts instantly without asking the server</li>
+                            <li>Can work offline</li>
+                            <li>Less load on the server</li>
+                        </ul>
+                        <strong>Limitations:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Anyone can read your JavaScript code</li>
+                            <li>Can't talk directly to a database</li>
+                            <li>Limited by the user's device</li>
+                        </ul>
+                    </div>
+
+                    <h3>Backend — what runs on the server</h3>
+                    <div style="border: 2px solid #15803d; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                        <strong>Technologies:</strong> PHP, Python, Node.js, Java, Go, Rust<br>
+                        <strong>Runs on:</strong> A server in a data center<br>
+                        <strong>What it does:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>Receives requests from the frontend</li>
+                            <li>Runs the business logic (checks, calculations, rules)</li>
+                            <li>Reads and writes to the database</li>
+                            <li>Sends JSON back to the frontend</li>
+                            <li>Keeps code and data private and secure</li>
+                        </ul>
+                        <strong>Advantages:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Code is completely hidden from users</li>
+                            <li>Can scale — add more servers if needed</li>
+                            <li>Direct access to the database</li>
+                            <li>Can do heavy tasks (send emails, process images)</li>
+                        </ul>
+                        <strong>Limitations:</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Every action involves a network request (slower)</li>
+                            <li>Costs money to host</li>
+                            <li>If it goes down, everything stops</li>
+                        </ul>
+                    </div>
+
+                    <h3>The full journey — a login, step by step</h3>
+                    <div class="diagram">
+                        <strong>Frontend (Browser)</strong><br>
+                        1. User fills in login form<br>
+                        2. JavaScript checks the email and password look valid<br>
+                        3. JavaScript sends HTTPS POST to the server<br>
+                        <br>
+                        ↓ (travels over the internet) ↓<br>
+                        <br>
+                        <strong>Backend (Server)</strong><br>
+                        4. PHP receives the request<br>
+                        5. PHP looks up the email in the database<br>
+                        6. PHP checks the password hash (never stores plain text!)<br>
+                        7. PHP creates a session token<br>
+                        8. PHP sends JSON back: { "success": true, "token": "..." }<br>
+                        <br>
+                        ↓ (travels over the internet) ↓<br>
+                        <br>
+                        <strong>Frontend (Browser)</strong><br>
+                        9. JavaScript reads the JSON<br>
+                        10. JavaScript saves the token<br>
+                        11. JavaScript redirects to the dashboard<br>
+                        12. User sees their dashboard!
+                    </div>
+
+                    <h3>API-first — the modern approach</h3>
+                    <p>Most modern apps are built "API-First": the backend builds a clean, documented API. The frontend, mobile app, and any third-party apps all use that same API. This means the website and the mobile app don't duplicate logic — they share it.</p>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://www.freecodecamp.org/news/frontend-vs-backend/" target="_blank">FreeCodeCamp: Frontend vs Backend</a></li>
+                            <li><a href="https://fullstackopen.com/" target="_blank">Full Stack Open Course</a></li>
+                            <li><a href="https://www.sitepoint.com/full-stack-developer/" target="_blank">SitePoint: Full Stack Development</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== RESPONSIVE ==================== -->
+                <div id="responsive" class="section">
+                    <h2>Responsive design — one website, all devices</h2>
+
+                    <p>Responsive design means your website looks and works great on every screen — a small phone (320px wide), a tablet, a laptop, a big monitor. More than 60% of web traffic now comes from phones, so this really matters.</p>
+
+                    <div class="analogy-box">
+                        <strong>🪑 Think of it like this:</strong> Responsive design is like adjustable car seats. The same seat fits a small child and a tall adult. A responsive website fits any screen size just as comfortably.
+                    </div>
+
+                    <h3>The three pillars of responsive design</h3>
+                    <div style="margin: 20px 0;">
+                        <strong>1. Flexible Layouts</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Use percentages instead of fixed pixel widths</li>
+                            <li>Use CSS Grid or Flexbox to arrange things</li>
+                            <li>Elements grow and shrink with the screen</li>
+                        </ul>
+                        <strong>2. Flexible Media</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Images resize automatically (<code>max-width: 100%</code>)</li>
+                            <li>Videos also adapt to screen size</li>
+                            <li>Use <code>srcset</code> to send high-res images only to high-res screens</li>
+                        </ul>
+                        <strong>3. Media Queries</strong>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Write different CSS for different screen sizes</li>
+                            <li>Common breakpoints: 480px (phone), 768px (tablet), 1024px (desktop)</li>
+                            <li>Can also target landscape vs portrait orientation</li>
+                        </ul>
+                    </div>
+
+                    <h3>Mobile-first — start small, build up</h3>
+                    <p>The modern approach is to design for mobile first, then add styles for bigger screens:</p>
+                    <div class="code-block"><code><span style="color: #61dafb">/* MOBILE — the base styles */</span>
+body {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.container {
+  display: block; <span style="color: #61dafb">/* stack vertically on small screens */</span>
+}
+
+<span style="color: #61dafb">/* TABLET */</span>
+@media (min-width: 768px) {
+  body { font-size: 16px; }
+  .container { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+<span style="color: #61dafb">/* DESKTOP */</span>
+@media (min-width: 1024px) {
+  body { font-size: 18px; max-width: 1200px; margin: 0 auto; }
+  .sidebar { width: 250px; }
+}</code></div>
+
+                    <h3>Responsive best practices</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Viewport meta tag:</strong> Always include <code>&lt;meta name="viewport" content="width=device-width"&gt;</code></li>
+                        <li><strong>Touch-friendly:</strong> Buttons should be at least 44x44px — fingers aren't as precise as mouse cursors</li>
+                        <li><strong>Readable text:</strong> Use at least 16px on mobile</li>
+                        <li><strong>Compress images:</strong> Mobile connections are slower — don't send huge files</li>
+                        <li><strong>Test on real devices:</strong> Emulators are good but real phones are better</li>
+                        <li><strong>No horizontal scrolling:</strong> If your page scrolls sideways, something's wrong</li>
+                    </ul>
+
+                    <h3>Tools for testing responsive design</h3>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Browser DevTools:</strong> Press F12, then click the phone icon to simulate different screens</li>
+                        <li><strong>Google Mobile-Friendly Test:</strong> Check if Google sees your page as mobile-friendly</li>
+                        <li><strong>Lighthouse:</strong> Built into Chrome — tests performance, accessibility and SEO</li>
+                        <li><strong>BrowserStack:</strong> Test on real devices in the cloud</li>
+                    </ul>
+
+                    <div class="resources-box">
+                        <strong>🎓 Want to learn more?</strong>
+                        <ul>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank">MDN: Responsive Design</a></li>
+                            <li><a href="https://www.smashingmagazine.com/responsive-design/" target="_blank">Smashing Magazine: Responsive Design</a></li>
+                            <li><a href="https://web.dev/responsive-web-design-basics/" target="_blank">Google: Responsive Web Design Basics</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ==================== SUMMARY ==================== -->
+                <div id="summary" class="section">
+                    <h2>Everything together — the full picture</h2>
+
+                    <h3>A full example: buying something in an online shop</h3>
+                    <div class="diagram">
+                        <strong>You type a URL into your browser</strong><br>
+                        ↓<br>
+                        <strong>DNS looks it up: "That domain is at 192.0.2.1"</strong><br>
+                        ↓<br>
+                        <strong>Browser sends: HTTPS GET /index.html</strong><br>
+                        ↓<br>
+                        <strong>Server sends back: HTML + CSS + JavaScript</strong><br>
+                        ↓<br>
+                        <strong>Browser builds and shows the page</strong><br>
+                        ↓<br>
+                        <strong>You scroll — JavaScript loads products</strong><br>
+                        ↓<br>
+                        <strong>JavaScript sends: GET /api/products (HTTPS)</strong><br>
+                        ↓<br>
+                        <strong>PHP receives the request on the server</strong><br>
+                        ↓<br>
+                        <strong>PHP fetches products from the Database</strong><br>
+                        ↓<br>
+                        <strong>PHP sends JSON: [{id: 1, name: "Product", price: 9.99}, ...]</strong><br>
+                        ↓<br>
+                        <strong>JavaScript shows the products on screen</strong><br>
+                        ↓<br>
+                        <strong>You click "Buy"</strong><br>
+                        ↓<br>
+                        <strong>JavaScript sends: POST /api/order {product: 1, quantity: 2}</strong><br>
+                        ↓<br>
+                        <strong>PHP checks the order and saves it to the Database</strong><br>
+                        ↓<br>
+                        <strong>PHP sends: {status: "success", orderNumber: 12345}</strong><br>
+                        ↓<br>
+                        <strong>JavaScript shows a success message!</strong>
+                    </div>
+
+                    <h3>All the technologies at a glance</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 20px 0;">
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>HTML</strong><br>🏠 Structure<br><em style="font-size: 0.85em;">The what</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>CSS</strong><br>🎨 Design<br><em style="font-size: 0.85em;">The look</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>JavaScript</strong><br>🧠 Brain<br><em style="font-size: 0.85em;">The action</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>HTTP/HTTPS</strong><br>🔒 Protocol<br><em style="font-size: 0.85em;">The conversation</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>DNS</strong><br>📕 Phone book<br><em style="font-size: 0.85em;">The address</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>APIs</strong><br>🍽️ Menu<br><em style="font-size: 0.85em;">The request</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>PHP</strong><br>👨‍🍳 Chef<br><em style="font-size: 0.85em;">The server logic</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>Database</strong><br>📚 Storage<br><em style="font-size: 0.85em;">The memory</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>JSON</strong><br>📦 Package<br><em style="font-size: 0.85em;">The data format</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>Responsive</strong><br>🪑 Flexible<br><em style="font-size: 0.85em;">Every screen</em></div>
+                    </div>
+
+                    <h3>A suggested learning path</h3>
+                    <ol style="margin-left: 20px; line-height: 2.2; margin-top: 20px;">
+                        <li><strong>Month 1:</strong> HTML + CSS basics — build a simple static website</li>
+                        <li><strong>Month 2:</strong> JavaScript basics — add buttons, forms, and interactions</li>
+                        <li><strong>Month 3:</strong> Responsive Design — make it work on a phone</li>
+                        <li><strong>Month 4:</strong> HTTP and DNS — understand what's happening under the hood</li>
+                        <li><strong>Month 5:</strong> PHP basics — learn to write server-side code</li>
+                        <li><strong>Month 6:</strong> Databases — learn to store and query data with MySQL</li>
+                        <li><strong>Month 7:</strong> Build APIs — connect your frontend to your backend</li>
+                        <li><strong>Month 8:</strong> Build your own project — put it all together</li>
+                        <li><strong>Month 9+:</strong> Learn React or Vue — modern frontend development</li>
+                    </ol>
+
+                    <h3>Tools worth installing</h3>
+                    <div style="margin: 20px 0;">
+                        <strong>Code Editors:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a> — Free, very popular, huge library of extensions</li>
+                            <li><a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a> — Paid, very powerful</li>
+                            <li><a href="https://sublime.com/" target="_blank">Sublime Text</a> — Lightweight and fast</li>
+                        </ul>
+                        <strong>Browsers (with Developer Tools):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://www.google.com/chrome/" target="_blank">Chrome</a> — Best DevTools, most used by developers</li>
+                            <li><a href="https://www.mozilla.org/firefox/" target="_blank">Firefox</a> — Open source, excellent DevTools</li>
+                            <li><a href="https://www.microsoft.com/edge" target="_blank">Edge</a> — Chromium-based, fast</li>
+                        </ul>
+                        <strong>Local Servers (to run PHP on your own computer):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://www.apachefriends.org/" target="_blank">XAMPP</a> — PHP + MySQL + Apache, most popular</li>
+                            <li><a href="https://www.laragon.org/" target="_blank">Laragon</a> — Great modern option for Windows</li>
+                            <li><a href="https://www.mamp.info/" target="_blank">MAMP</a> — macOS and Windows</li>
+                        </ul>
+                        <strong>Version Control (save your work, track changes):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://git-scm.com/" target="_blank">Git</a> — Essential — every developer uses this</li>
+                            <li><a href="https://github.com/" target="_blank">GitHub</a> — Store your code online and show it to the world</li>
+                            <li><a href="https://gitlab.com/" target="_blank">GitLab</a> — GitHub alternative</li>
+                        </ul>
+                    </div>
+
+                    <div class="resources-box" style="margin-top: 30px;">
+                        <strong>📚 Great places to keep learning:</strong>
+                        <ul>
+                            <li><a href="https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery/" target="_blank">Udemy: The Complete Web Developer (Paid)</a></li>
+                            <li><a href="https://www.codecademy.com/" target="_blank">Codecademy: Interactive courses</a></li>
+                            <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp: Free and very thorough</a></li>
+                            <li><a href="https://www.linkedin.com/learning/" target="_blank">LinkedIn Learning</a></li>
+                            <li><a href="https://www.coursera.org/" target="_blank">Coursera: University-quality courses</a></li>
+                            <li><a href="https://fullstackopen.com/" target="_blank">Full Stack Open: Free and professional</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 30px; background: #d4edda; border-left-color: #166534;">
+                        <strong>🎉 You're ready to start!</strong><br><br>
+                        You now understand all the main pieces of how the web works — not just what they are, but <em>why</em> they work the way they do. The best way to learn from here is to build things. Start small, make mistakes, look things up, and keep going.<br><br>
+                        Tips for success:<br>
+                        1. Start with something simple — a personal homepage or a to-do list<br>
+                        2. Find code on GitHub and try to understand how it works<br>
+                        3. Don't just watch tutorials — type the code yourself<br>
+                        4. Build something you actually care about<br>
+                        5. Put your code on GitHub — it's your portfolio<br>
+                        6. Start building! Good luck! 💪
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        // === HTML Demo ===
+        function renderHtml() {
+            const code = document.getElementById('htmlInput').value;
+            document.getElementById('htmlPreview').innerHTML = code;
+        }
+
+        // === CSS Demo ===
+        function renderCss() {
+            const css = document.getElementById('cssInput').value;
+            document.getElementById('cssPreview').innerHTML =
+                '<style>' + css + '</style>' +
+                '<h1>This is a Heading</h1>' +
+                '<p>This is a paragraph with some text.</p>';
+        }
+
+        // === JavaScript Demos ===
+        function jsDemo1() {
+            const now = new Date();
+            showJsOutput('Current Time: ' + now.toLocaleTimeString('en-US'));
+        }
+
+        function jsDemo2() {
+            showJsOutput('5 + 3 = ' + (5 + 3));
+        }
+
+        function jsDemo3() {
+            showJsOutput('Hello! Welcome to JavaScript!');
+        }
+
+        function showJsOutput(msg) {
+            const el = document.getElementById('jsOutput');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function calculateSum() {
+            const n1 = parseFloat(document.getElementById('num1').value);
+            const n2 = parseFloat(document.getElementById('num2').value);
+            const el = document.getElementById('calcOutput');
+            el.textContent = (isNaN(n1) || isNaN(n2))
+                ? 'Please enter valid numbers!'
+                : n1 + ' + ' + n2 + ' = ' + (n1 + n2);
+            el.style.display = 'block';
+        }
+
+        // === PHP Simulation ===
+        function simulatePhp() {
+            const name = document.getElementById('phpName').value.trim();
+            const el = document.getElementById('phpOutput');
+            if (!name) {
+                el.textContent = 'Please enter a name!';
+            } else {
+                const now = new Date();
+                const greeting = now.getHours() < 12 ? 'Good morning' : 'Good afternoon';
+                el.textContent =
+                    'Server-side PHP processing:\n' +
+                    '- Name received: "' + name + '"\n' +
+                    '- Current time: ' + now.toLocaleTimeString('en-US') + '\n' +
+                    '- Database query executed\n' +
+                    '- Response sent to browser:\n\n' +
+                    greeting + ', ' + name + '! Your data was processed on the server.';
+            }
+            el.style.display = 'block';
+        }
+
+        // === JSON Demos ===
+        function showJsonExample1() {
+            const data = { "name": "Alex", "age": 25, "city": "Amsterdam", "isStudent": true };
+            showJson(data);
+        }
+
+        function showJsonExample2() {
+            const data = [
+                { "name": "Alice", "age": 20 },
+                { "name": "Bob", "age": 22 },
+                { "name": "Charlie", "age": 21 }
+            ];
+            showJson(data);
+        }
+
+        function showJsonExample3() {
+            const data = {
+                "company": "Tech Company",
+                "employees": [
+                    { "name": "John", "department": "Engineering" },
+                    { "name": "Sarah", "department": "Marketing" }
+                ],
+                "founded": 2010
+            };
+            showJson(data);
+        }
+
+        function showJson(data) {
+            const el = document.getElementById('jsonDisplay');
+            el.textContent = JSON.stringify(data, null, 2);
+            el.style.display = 'block';
+        }
+
+        // Initialise previews on load
+        document.addEventListener('DOMContentLoaded', function () {
+            renderHtml();
+            renderCss();
+        });
+    </script>
+</body>
+</html>

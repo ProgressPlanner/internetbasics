@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everything together — Web Basics Tutorial</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            }
+
+        .content {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .nav-item:hover {
+            background: #e9ecef;
+            border-left-color: #4f46e5;
+        }
+
+        .nav-item.active {
+            background: #4f46e5;
+            color: white;
+            border-left-color: #4f46e5;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #4f46e5;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .analogy-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .analogy-box strong {
+            color: #856404;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #4f46e5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #721c24;
+        }
+
+        .resources-box {
+            background: #f0f8ff;
+            border-left: 4px solid #15803d;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .resources-box strong {
+            color: #166534;
+        }
+
+        .resources-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+
+        .resources-box a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .resources-box a:hover {
+            text-decoration: underline;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #4f46e5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            line-height: 2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px solid #4f46e5;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .demo-title {
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .code-editor {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .editor-pane {
+            flex: 1;
+        }
+
+        .editor-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .preview {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: white;
+            min-height: 80px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: none;
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 0.85em;
+                padding: 10px 12px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .main {
+                padding: 20px;
+                max-height: none;
+            }
+
+            .code-editor {
+                flex-direction: column;
+            }
+        }
+    
+        /* Keyboard focus indicators (WCAG 2.4.7) */
+        button:focus-visible,
+        .nav-item:focus-visible {
+            outline: 3px solid #4f46e5;
+            outline-offset: 2px;
+        }
+        a:focus-visible {
+            outline: 2px solid #4f46e5;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+        /* ── Multi-page navigation ── */
+        .page-top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.15);
+            font-size: 0.9em;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .page-top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.6);
+            white-space: nowrap;
+        }
+        .page-top-nav a:hover { background: rgba(255,255,255,0.2); }
+        .page-bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-top: 1px solid #ddd;
+            background: #f8f9fa;
+            gap: 12px;
+        }
+        .page-bottom-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .page-bottom-nav a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.35);
+        }
+        .group-subtitle {
+            font-size: 0.95em;
+            font-weight: 500;
+            margin-top: 6px;
+            opacity: 1;
+        }
+
+        /* Explicit white text in header — overrides global p/h rules (WCAG fix) */
+        header h1,
+        header p,
+        .page-top-nav,
+        .group-subtitle {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="page-top-nav">
+                <a href="index.html">← Home</a>
+                <a href="../nl/samenvatting.html">🇳🇱 Nederlands</a>
+            </div>
+            <h1>🌐 Web Basics Tutorial</h1>
+            <p>Learn how the web works — with examples, analogies, and things you can try yourself!</p>
+            <p class="group-subtitle">Summary & Next Steps</p>
+        </header>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="nav-item active" onclick="showSection('summary', this)">✅ Everything together</div>
+            </div>
+            <div class="main">
+                <div id="summary" class="section active">
+                    <h2>Everything together — the full picture</h2>
+
+                    <h3>A full example: buying something in an online shop</h3>
+                    <div class="diagram">
+                        <strong>You type a URL into your browser</strong><br>
+                        ↓<br>
+                        <strong>DNS looks it up: "That domain is at 192.0.2.1"</strong><br>
+                        ↓<br>
+                        <strong>Browser sends: HTTPS GET /index.html</strong><br>
+                        ↓<br>
+                        <strong>Server sends back: HTML + CSS + JavaScript</strong><br>
+                        ↓<br>
+                        <strong>Browser builds and shows the page</strong><br>
+                        ↓<br>
+                        <strong>You scroll — JavaScript loads products</strong><br>
+                        ↓<br>
+                        <strong>JavaScript sends: GET /api/products (HTTPS)</strong><br>
+                        ↓<br>
+                        <strong>PHP receives the request on the server</strong><br>
+                        ↓<br>
+                        <strong>PHP fetches products from the Database</strong><br>
+                        ↓<br>
+                        <strong>PHP sends JSON: [{id: 1, name: "Product", price: 9.99}, ...]</strong><br>
+                        ↓<br>
+                        <strong>JavaScript shows the products on screen</strong><br>
+                        ↓<br>
+                        <strong>You click "Buy"</strong><br>
+                        ↓<br>
+                        <strong>JavaScript sends: POST /api/order {product: 1, quantity: 2}</strong><br>
+                        ↓<br>
+                        <strong>PHP checks the order and saves it to the Database</strong><br>
+                        ↓<br>
+                        <strong>PHP sends: {status: "success", orderNumber: 12345}</strong><br>
+                        ↓<br>
+                        <strong>JavaScript shows a success message!</strong>
+                    </div>
+
+                    <h3>All the technologies at a glance</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 20px 0;">
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>HTML</strong><br>🏠 Structure<br><em style="font-size: 0.85em;">The what</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>CSS</strong><br>🎨 Design<br><em style="font-size: 0.85em;">The look</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>JavaScript</strong><br>🧠 Brain<br><em style="font-size: 0.85em;">The action</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>HTTP/HTTPS</strong><br>🔒 Protocol<br><em style="font-size: 0.85em;">The conversation</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>DNS</strong><br>📕 Phone book<br><em style="font-size: 0.85em;">The address</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>APIs</strong><br>🍽️ Menu<br><em style="font-size: 0.85em;">The request</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>PHP</strong><br>👨‍🍳 Chef<br><em style="font-size: 0.85em;">The server logic</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>Database</strong><br>📚 Storage<br><em style="font-size: 0.85em;">The memory</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>JSON</strong><br>📦 Package<br><em style="font-size: 0.85em;">The data format</em></div>
+                        <div style="border: 2px solid #4f46e5; padding: 15px; border-radius: 5px; text-align: center;"><strong>Responsive</strong><br>🪑 Flexible<br><em style="font-size: 0.85em;">Every screen</em></div>
+                    </div>
+
+                    <h3>A suggested learning path</h3>
+                    <ol style="margin-left: 20px; line-height: 2.2; margin-top: 20px;">
+                        <li><strong>Month 1:</strong> HTML + CSS basics — build a simple static website</li>
+                        <li><strong>Month 2:</strong> JavaScript basics — add buttons, forms, and interactions</li>
+                        <li><strong>Month 3:</strong> Responsive Design — make it work on a phone</li>
+                        <li><strong>Month 4:</strong> HTTP and DNS — understand what's happening under the hood</li>
+                        <li><strong>Month 5:</strong> PHP basics — learn to write server-side code</li>
+                        <li><strong>Month 6:</strong> Databases — learn to store and query data with MySQL</li>
+                        <li><strong>Month 7:</strong> Build APIs — connect your frontend to your backend</li>
+                        <li><strong>Month 8:</strong> Build your own project — put it all together</li>
+                        <li><strong>Month 9+:</strong> Learn React or Vue — modern frontend development</li>
+                    </ol>
+
+                    <h3>Tools worth installing</h3>
+                    <div style="margin: 20px 0;">
+                        <strong>Code Editors:</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://code.visualstudio.com/" target="_blank">VS Code</a> — Free, very popular, huge library of extensions</li>
+                            <li><a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a> — Paid, very powerful</li>
+                            <li><a href="https://sublime.com/" target="_blank">Sublime Text</a> — Lightweight and fast</li>
+                        </ul>
+                        <strong>Browsers (with Developer Tools):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://www.google.com/chrome/" target="_blank">Chrome</a> — Best DevTools, most used by developers</li>
+                            <li><a href="https://www.mozilla.org/firefox/" target="_blank">Firefox</a> — Open source, excellent DevTools</li>
+                            <li><a href="https://www.microsoft.com/edge" target="_blank">Edge</a> — Chromium-based, fast</li>
+                        </ul>
+                        <strong>Local Servers (to run PHP on your own computer):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://www.apachefriends.org/" target="_blank">XAMPP</a> — PHP + MySQL + Apache, most popular</li>
+                            <li><a href="https://www.laragon.org/" target="_blank">Laragon</a> — Great modern option for Windows</li>
+                            <li><a href="https://www.mamp.info/" target="_blank">MAMP</a> — macOS and Windows</li>
+                        </ul>
+                        <strong>Version Control (save your work, track changes):</strong>
+                        <ul style="margin-left: 20px; line-height: 1.8;">
+                            <li><a href="https://git-scm.com/" target="_blank">Git</a> — Essential — every developer uses this</li>
+                            <li><a href="https://github.com/" target="_blank">GitHub</a> — Store your code online and show it to the world</li>
+                            <li><a href="https://gitlab.com/" target="_blank">GitLab</a> — GitHub alternative</li>
+                        </ul>
+                    </div>
+
+                    <div class="resources-box" style="margin-top: 30px;">
+                        <strong>📚 Great places to keep learning:</strong>
+                        <ul>
+                            <li><a href="https://www.udemy.com/course/the-complete-web-developer-zero-to-mastery/" target="_blank">Udemy: The Complete Web Developer (Paid)</a></li>
+                            <li><a href="https://www.codecademy.com/" target="_blank">Codecademy: Interactive courses</a></li>
+                            <li><a href="https://www.freecodecamp.org/" target="_blank">FreeCodeCamp: Free and very thorough</a></li>
+                            <li><a href="https://www.linkedin.com/learning/" target="_blank">LinkedIn Learning</a></li>
+                            <li><a href="https://www.coursera.org/" target="_blank">Coursera: University-quality courses</a></li>
+                            <li><a href="https://fullstackopen.com/" target="_blank">Full Stack Open: Free and professional</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 30px; background: #d4edda; border-left-color: #166534;">
+                        <strong>🎉 You're ready to start!</strong><br><br>
+                        You now understand all the main pieces of how the web works — not just what they are, but <em>why</em> they work the way they do. The best way to learn from here is to build things. Start small, make mistakes, look things up, and keep going.<br><br>
+                        Tips for success:<br>
+                        1. Start with something simple — a personal homepage or a to-do list<br>
+                        2. Find code on GitHub and try to understand how it works<br>
+                        3. Don't just watch tutorials — type the code yourself<br>
+                        4. Build something you actually care about<br>
+                        5. Put your code on GitHub — it's your portfolio<br>
+                        6. Start building! Good luck! 💪
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-bottom-nav">
+            <a href="bigger-picture.html">← The bigger picture</a>
+            <span></span>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, el) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            el.classList.add('active');
+        }
+
+        // === HTML Demo ===
+        function renderHtml() {
+            const code = document.getElementById('htmlInput').value;
+            document.getElementById('htmlPreview').innerHTML = code;
+        }
+
+        // === CSS Demo ===
+        function renderCss() {
+            const css = document.getElementById('cssInput').value;
+            document.getElementById('cssPreview').innerHTML =
+                '<style>' + css + '</style>' +
+                '<h1>This is a Heading</h1>' +
+                '<p>This is a paragraph with some text.</p>';
+        }
+
+        // === JavaScript Demos ===
+        function jsDemo1() {
+            const now = new Date();
+            showJsOutput('Current Time: ' + now.toLocaleTimeString('en-US'));
+        }
+
+        function jsDemo2() {
+            showJsOutput('5 + 3 = ' + (5 + 3));
+        }
+
+        function jsDemo3() {
+            showJsOutput('Hello! Welcome to JavaScript!');
+        }
+
+        function showJsOutput(msg) {
+            const el = document.getElementById('jsOutput');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function calculateSum() {
+            const n1 = parseFloat(document.getElementById('num1').value);
+            const n2 = parseFloat(document.getElementById('num2').value);
+            const el = document.getElementById('calcOutput');
+            el.textContent = (isNaN(n1) || isNaN(n2))
+                ? 'Please enter valid numbers!'
+                : n1 + ' + ' + n2 + ' = ' + (n1 + n2);
+            el.style.display = 'block';
+        }
+
+        // === PHP Simulation ===
+        function simulatePhp() {
+            const name = document.getElementById('phpName').value.trim();
+            const el = document.getElementById('phpOutput');
+            if (!name) {
+                el.textContent = 'Please enter a name!';
+            } else {
+                const now = new Date();
+                const greeting = now.getHours() < 12 ? 'Good morning' : 'Good afternoon';
+                el.textContent =
+                    'Server-side PHP processing:\n' +
+                    '- Name received: "' + name + '"\n' +
+                    '- Current time: ' + now.toLocaleTimeString('en-US') + '\n' +
+                    '- Database query executed\n' +
+                    '- Response sent to browser:\n\n' +
+                    greeting + ', ' + name + '! Your data was processed on the server.';
+            }
+            el.style.display = 'block';
+        }
+
+        // === JSON Demos ===
+        function showJsonExample1() {
+            const data = { "name": "Alex", "age": 25, "city": "Amsterdam", "isStudent": true };
+            showJson(data);
+        }
+
+        function showJsonExample2() {
+            const data = [
+                { "name": "Alice", "age": 20 },
+                { "name": "Bob", "age": 22 },
+                { "name": "Charlie", "age": 21 }
+            ];
+            showJson(data);
+        }
+
+        function showJsonExample3() {
+            const data = {
+                "company": "Tech Company",
+                "employees": [
+                    { "name": "John", "department": "Engineering" },
+                    { "name": "Sarah", "department": "Marketing" }
+                ],
+                "founded": 2010
+            };
+            showJson(data);
+        }
+
+        function showJson(data) {
+            const el = document.getElementById('jsonDisplay');
+            el.textContent = JSON.stringify(data, null, 2);
+            el.style.display = 'block';
+        }
+
+        // Initialise previews on load
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof renderHtml === 'function') renderHtml();
+            if (typeof renderCss === 'function') renderCss();
+        });
+    </script>
+</body>
+</html>

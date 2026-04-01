@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Basics Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 48px 40px;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #1e1b4b;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .lang-options {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .lang-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 24px 32px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #1e1b4b;
+            font-weight: 600;
+            font-size: 1em;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            flex: 1;
+        }
+
+        .lang-btn:hover {
+            border-color: #4f46e5;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.18);
+        }
+
+        .lang-btn:focus-visible {
+            outline: 3px solid #4f46e5;
+            outline-offset: 3px;
+        }
+
+        .lang-btn .flag {
+            font-size: 2.4em;
+            line-height: 1;
+        }
+
+        .lang-btn .lang-name {
+            font-size: 1.05em;
+        }
+
+        .lang-btn .lang-sub {
+            font-size: 0.8em;
+            font-weight: 400;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 400px) {
+            .card { padding: 36px 24px; }
+            .lang-options { flex-direction: column; }
+            .lang-btn { flex-direction: row; gap: 16px; justify-content: flex-start; padding: 18px 20px; }
+            .lang-btn .flag { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🌐 Web Basics Tutorial</h1>
+        <p class="subtitle">Learn how the web works — with examples, analogies, and things you can try yourself.</p>
+
+        <nav class="lang-options" aria-label="Choose a language">
+            <a href="en/index.html" class="lang-btn" lang="en">
+                <span class="flag" aria-hidden="true">🇬🇧</span>
+                <span class="lang-name">English</span>
+                <span class="lang-sub">Continue in English</span>
+            </a>
+            <a href="nl/index.html" class="lang-btn" lang="nl">
+                <span class="flag" aria-hidden="true">🇳🇱</span>
+                <span class="lang-name">Nederlands</span>
+                <span class="lang-sub">Ga verder in het Nederlands</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>
