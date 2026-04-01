@@ -15,19 +15,19 @@ Available in Dutch and English. Open any `index.html` directly in your browser �
 
 The tutorial is split into five sections per language:
 
-**The Building Blocks** — HTML, CSS, JavaScript
+**The building blocks** — HTML, CSS, JavaScript
 The three things every webpage is made of. Includes live demos you can edit in the browser.
 
-**How the Web Works** — HTTP/HTTPS, DNS, APIs
+**How the web works** — HTTP/HTTPS, DNS, APIs
 What actually happens when you type a URL. Why HTTPS matters. How apps talk to each other.
 
-**Storing and Serving Data** — PHP, JSON, Databases
+**Storing and serving data** — Servers & hosting, PHP, JSON, Databases
 How servers process requests, how data is formatted, and how it gets stored and retrieved.
 
-**The Bigger Picture** — Frontend/Backend, Responsive Design
+**The bigger picture** — Frontend/Backend, Responsive design
 How the two sides of a web app fit together, and how sites adapt to any screen size.
 
-**Everything Together** — Summary and next steps
+**Everything together** — Summary and next steps
 A recap of all twelve concepts, with links to go deeper.
 
 ## Project structure
@@ -47,9 +47,7 @@ internetbasics/
 │   ├── hoe-het-web-werkt.html  HTTP/HTTPS · DNS · APIs
 │   ├── backend-en-data.html    PHP · JSON · Databases
 │   ├── groot-plaatje.html      Frontend/Backend · Responsive
-│   └── samenvatting.html       Alles Samen
-├── internet-basics-en.html     Single-file version (English, legacy)
-├── internet-basics.html        Single-file version (Dutch, legacy)
+│   └── samenvatting.html       Alles samen
 ├── README.md
 └── LICENSE
 ```
